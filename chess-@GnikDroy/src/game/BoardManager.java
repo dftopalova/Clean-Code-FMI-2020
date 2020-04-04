@@ -25,25 +25,27 @@ public class BoardManager {
 	/**
 	 * Current Player which is to move. Default is PlayerType.WHITE
 	 */
-	private PlayerType currentPlayer = PlayerType.WHITE;
+	private PlayerType currentPlayer;
 
 	/**
 	 * This is the list that holds all the moves made by the user.
 	 */
-	private List<Move> moveList = new ArrayList<Move>();
+	private List<Move> movesList;
 
 	/**
 	 * Constructs a new BoardManager object
 	 */
 	public BoardManager() {
 		this.board = new Board();
+		this.currentPlayer = PlayerType.WHITE;
+		this.movesList = new ArrayList<>();
 	}
 
 	/**
 	 * Resets the board to it's initial state
 	 */
 	public void resetBoard() {
-		moveList = new ArrayList<Move>();
+		movesList = new ArrayList<Move>();
 		board.resetBoard();
 		currentPlayer = PlayerType.WHITE;
 	}
@@ -74,8 +76,8 @@ public class BoardManager {
 	 * 
 	 * @return List The list of moves
 	 */
-	public List<Move> getMoveList() {
-		return moveList;
+	public List<Move> getMovesList() {
+		return movesList;
 	}
 
 	/**
@@ -109,7 +111,7 @@ public class BoardManager {
 			} else {
 				piece = new Queen(square.getPiece().getPlayer());
 			}
-			moveList.add(new Move(square.getCoordinate(), square
+			movesList.add(new Move(square.getCoordinate(), square
 					.getCoordinate(), piece, square));
 			square.setPiece(piece);
 			return true;
@@ -211,10 +213,10 @@ public class BoardManager {
 	 * This undoes the previous move.
 	 */
 	public void undoMove() {
-		if (moveList.isEmpty()) {
+		if (movesList.isEmpty()) {
 			return;
 		}
-		Move lastMove = moveList.get(moveList.size() - 1);
+		Move lastMove = movesList.get(movesList.size() - 1);
 		if (lastMove.getFinalCoordinate() != lastMove.getInitCoordinate()) {
 			board.makeMove(lastMove.getFinalCoordinate(),
 					lastMove.getInitCoordinate());
@@ -225,13 +227,13 @@ public class BoardManager {
 			}
 		} else {
 			// If the move was a promotion.
-			moveList.remove(moveList.size() - 1);
-			lastMove = moveList.get(moveList.size() - 1);
+			movesList.remove(movesList.size() - 1);
+			lastMove = movesList.get(movesList.size() - 1);
 			board.setPiece(lastMove.getFinalCoordinate(), new Pawn(lastMove
 					.getPiece().getPlayer()));
 		}
 		// Flush the lastmove.
-		moveList.remove(moveList.size() - 1);
+		movesList.remove(movesList.size() - 1);
 		// Switch the current players.
 		switchCurrentPlayer();
 	}
@@ -311,22 +313,22 @@ public class BoardManager {
 				Piece tmp = s1.getPiece();
 				castle(s1, s2);
 				switchCurrentPlayer();
-				moveList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
+				movesList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
 						tmp));
 				return true;
 			} else if (isValidEnpassant(s1, s2)) {
 				Piece tmp = s1.getPiece();
 				Square capture = board
-						.getSquare((moveList.get(moveList.size() - 1)
+						.getSquare((movesList.get(movesList.size() - 1)
 								.getFinalCoordinate()));
 				enpassant(s1, s2);
 				switchCurrentPlayer();
-				moveList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
+				movesList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
 						tmp, capture));
 				return true;
 			} else if (isValidMove(s1, s2)) {
 				switchCurrentPlayer();
-				moveList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
+				movesList.add(new Move(s1.getCoordinate(), s2.getCoordinate(),
 						s1.getPiece(), s1));
 				board.makeMove(s1, s2);
 				return true;
@@ -371,10 +373,10 @@ public class BoardManager {
 				&& Math.abs(s1.getCoordinate().getY()
 						- s2.getCoordinate().getY()) == 1) {
 			// There should be a pawn move before enpassant.
-			if (moveList.isEmpty()) {
+			if (movesList.isEmpty()) {
 				return false;
 			}
-			Move lastMove = moveList.get(moveList.size() - 1);
+			Move lastMove = movesList.get(movesList.size() - 1);
 			if (lastMove.getPiece() == null) {
 				return false;
 			}
@@ -403,7 +405,7 @@ public class BoardManager {
 	 *            Final Square
 	 */
 	private void enpassant(Square initSquare, Square finalSquare) {
-		Move lastMove = moveList.get(moveList.size() - 1);
+		Move lastMove = movesList.get(movesList.size() - 1);
 		board.capturePiece(board.getSquare(lastMove.getFinalCoordinate()));
 		board.makeMove(initSquare, finalSquare);
 
@@ -429,7 +431,7 @@ public class BoardManager {
 		// board temporarily.
 		if (isValidEnpassant(initSquare, finalSquare)) {
 			enpassant = true;
-			lastMove = board.getSquare(moveList.get(moveList.size() - 1)
+			lastMove = board.getSquare(movesList.get(movesList.size() - 1)
 					.getFinalCoordinate());
 			tmp = lastMove.getPiece();
 			lastMove.releasePiece();
@@ -536,7 +538,7 @@ public class BoardManager {
 	 * @return boolean If this piece has been moved or captured.
 	 */
 	private boolean hasPieceMoved(Square square) {
-		for (Move move : moveList) {
+		for (Move move : movesList) {
 			if (move.getInitCoordinate() == square.getCoordinate()
 					|| move.getFinalCoordinate() == square.getCoordinate()) {
 				return true;
@@ -760,10 +762,8 @@ public class BoardManager {
 		if (!isValidMovement(initSquare, finalSquare)) {
 			return false;
 		}
-		if (moveMakesCheck(initSquare, finalSquare)) {
-			return false;
-		}
-		return true;
+
+		return !moveMakesCheck(initSquare, finalSquare);
 	}
 
 }

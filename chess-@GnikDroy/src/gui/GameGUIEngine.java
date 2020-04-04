@@ -41,7 +41,7 @@ public class GameGUIEngine {
 	}
 	public void moveAI(){
 		if (boardManager.getCurrentPlayer()!=humanPlayer){
-			String bestMove=stockfish.getBestMove(MoveParser.parse(boardManager.getMoveList()));
+			String bestMove=stockfish.getBestMove(MoveParser.parse(boardManager.getMovesList()));
 			
 			if(!bestMove.equals("")){
 			Coordinate initCoordinate=new Coordinate(bestMove.substring(0,2));
