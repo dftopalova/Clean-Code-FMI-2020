@@ -3,18 +3,13 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import pieces.Bishop;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Piece;
-import pieces.PieceType;
-import pieces.Queen;
-import pieces.Rook;
+import custom_exceptions.UnsupportedPieceTypeException;
+import pieces.*;
 import player.PlayerType;
 
 /**
  * @author gnik
- * 
+ *
  */
 public class BoardManager {
 	/**
@@ -64,7 +59,7 @@ public class BoardManager {
 
 	/**
 	 * Return the player who is to move
-	 * 
+	 *
 	 * @return PlayerType The player
 	 */
 	public PlayerType getCurrentPlayer() {
@@ -73,7 +68,7 @@ public class BoardManager {
 
 	/**
 	 * Returns a list of moves that the player has made.
-	 * 
+	 *
 	 * @return List The list of moves
 	 */
 	public List<Move> getMovesList() {
@@ -82,7 +77,7 @@ public class BoardManager {
 
 	/**
 	 * Returns the board object
-	 * 
+	 *
 	 * @return board The board object
 	 */
 	public Board getBoard() {
@@ -91,7 +86,7 @@ public class BoardManager {
 
 	/**
 	 * Promotes a pawn to a newer piece. Calls isValidPromotion function first
-	 * 
+	 *
 	 * @param square
 	 *            Promotion Square
 	 * @param pieceType
@@ -102,15 +97,7 @@ public class BoardManager {
 	public boolean promote(Square square, PieceType pieceType) {
 		if (isValidPromotion(square)) {
 			Piece piece;
-			if (pieceType == PieceType.BISHOP) {
-				piece = new Bishop(square.getPiece().getPlayer());
-			} else if (pieceType == PieceType.KNIGHT) {
-				piece = new Knight(square.getPiece().getPlayer());
-			} else if (pieceType == PieceType.ROOK) {
-				piece = new Rook(square.getPiece().getPlayer());
-			} else {
-				piece = new Queen(square.getPiece().getPlayer());
-			}
+			piece = generatePiece(square, pieceType);
 			movesList.add(new Move(square.getCoordinate(), square
 					.getCoordinate(), piece, square));
 			square.setPiece(piece);
@@ -119,9 +106,28 @@ public class BoardManager {
 		return false;
 	}
 
+	private Piece generatePiece(Square square, PieceType pieceType) {
+		switch (pieceType){
+			case BISHOP:
+				return new Bishop(square.getPiece().getPlayer());
+			case KNIGHT:
+				return new Knight(square.getPiece().getPlayer());
+			case ROOK:
+				return new Rook(square.getPiece().getPlayer());
+			case QUEEN:
+				return new Queen(square.getPiece().getPlayer());
+			case KING:
+				return new King(square.getPiece().getPlayer());
+			case PAWN:
+				return new Pawn(square.getPiece().getPlayer());
+			default:
+				throw new UnsupportedPieceTypeException("Invalid piece type");
+		}
+	}
+
 	/**
 	 * Checks if the square contains a pawn that can be promoted.
-	 * 
+	 *
 	 * @param square
 	 *            Square of the pawn
 	 * @return boolean If the pawn can be promoted
@@ -144,7 +150,7 @@ public class BoardManager {
 
 	/**
 	 * Returns if either of the players are checkmated.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isGameOver() {
@@ -153,7 +159,7 @@ public class BoardManager {
 
 	/**
 	 * Returns if the player is checkmated or not.
-	 * 
+	 *
 	 * @param player
 	 *            The player to check checkmate for
 	 * @return boolean
@@ -235,7 +241,7 @@ public class BoardManager {
 
 	/**
 	 * This function returns all the valid moves a square/piece can make
-	 * 
+	 *
 	 * @param coordinate
 	 *            The coordinate of the piece/square.
 	 * @return Square[] The array of possible squares.
@@ -256,7 +262,7 @@ public class BoardManager {
 	/**
 	 * Returns the array of squares of the pieces that are attacking the King If
 	 * no piece is attacking it then empty array is returned.
-	 * 
+	 *
 	 * @param player
 	 *            The player whose king is under attack
 	 * @return Squares[] The array of squares of pieces that are attacking the
@@ -285,7 +291,7 @@ public class BoardManager {
 	/**
 	 * Makes a move from initial coordinate to final one. It calls
 	 * isValidMove(),isValidCastling() and isValidEnpassant()
-	 * 
+	 *
 	 * @param initCoordinate
 	 *            Initial Coordinate
 	 * @param finalCoordinate
@@ -334,7 +340,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if the move is valid enpassant move.
-	 * 
+	 *
 	 * @param s1
 	 *            Initial Square
 	 * @param s2
@@ -393,7 +399,7 @@ public class BoardManager {
 
 	/**
 	 * Makes a Enpassant move
-	 * 
+	 *
 	 * @param initSquare
 	 *            Initial Square
 	 * @param finalSquare
@@ -408,7 +414,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if the given move makes check for the moving player
-	 * 
+	 *
 	 * @param initSquare
 	 *            Initial Square
 	 * @param finalSquare
@@ -451,7 +457,7 @@ public class BoardManager {
 
 	/**
 	 * Gets the square of the King
-	 * 
+	 *
 	 * @param player
 	 *            The player whose king it is
 	 * @return Square The square of the king
@@ -475,7 +481,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if there is check for the player
-	 * 
+	 *
 	 * @param player
 	 *            Is this player in check
 	 * @return boolean If the player is in check
@@ -486,7 +492,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if the move is valid pawn capture move
-	 * 
+	 *
 	 * @param initSquare
 	 *            Initial Square
 	 * @param finalSquare
@@ -538,7 +544,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if it is valid Castling move
-	 * 
+	 *
 	 * @param kingSquare
 	 *            The square of the king
 	 * @param rookSquare
@@ -618,7 +624,7 @@ public class BoardManager {
 	 * Makes a castle move.
 	 * <p>
 	 * It calls the isValidCastling() first.
-	 * 
+	 *
 	 * @param kingSquare
 	 *            The square of the King
 	 * @param rookSquare
@@ -642,7 +648,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if there are any obstacles between the pieces.
-	 * 
+	 *
 	 * @param path
 	 *            The path between the pieces
 	 * @param initCoordinate
@@ -687,7 +693,7 @@ public class BoardManager {
 
 	/**
 	 * Checks if the piece can make a valid movement to the square.
-	 * 
+	 *
 	 * @param initSquare
 	 *            Initial Square
 	 * @param finalSquare
@@ -730,7 +736,7 @@ public class BoardManager {
 	/**
 	 * Checks if the given move is valid and safe. Calls the isValidMovement()
 	 * and moveMakesCheck().
-	 * 
+	 *
 	 * @param initSquare
 	 *            The initial Square
 	 * @param finalSquare
