@@ -172,11 +172,15 @@ public class BoardManager {
 		}
 
 		// If there is more than one attacker then there are many options check all.
+		return checkAllPossibleCheckmates(player, attackers[0]);
+
+	}
+
+	private boolean checkAllPossibleCheckmates(PlayerType player, Square attacker) {
 		boolean checkmate = true;
-		Square attackerSquare = attackers[0];
 		Square kingSquare = squareOfKing(player);
-		Coordinate[] attackPath = attackerSquare.getPiece().getPath(
-				attackerSquare.getCoordinate(), kingSquare.getCoordinate());
+		Coordinate[] attackPath = attacker.getPiece().getPath(
+				attacker.getCoordinate(), kingSquare.getCoordinate());
 		Square[][] allSquares = board.getSquares();
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
@@ -207,7 +211,6 @@ public class BoardManager {
 
 		}
 		return checkmate;
-
 	}
 
 	/**
