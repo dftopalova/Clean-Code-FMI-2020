@@ -45,7 +45,7 @@ public class BoardManager {
 	 * Resets the board to it's initial state
 	 */
 	public void resetBoard() {
-		movesList = new ArrayList<Move>();
+		movesList = new ArrayList<>();
 		board.resetBoard();
 		currentPlayer = PlayerType.WHITE;
 	}
@@ -127,7 +127,7 @@ public class BoardManager {
 	 * @return boolean If the pawn can be promoted
 	 */
 	public boolean isValidPromotion(Square square) {
-		if (!square.isOccupied() == true) {
+		if (!square.isOccupied()) {
 			return false;
 		}
 		if (square.getPiece().getType() == PieceType.PAWN) {
@@ -135,10 +135,8 @@ public class BoardManager {
 			if (square.getPiece().getPlayer() == PlayerType.BLACK) {
 				col = 0;
 			}
-			if (square.getCoordinate().equals(
-					new Coordinate(square.getCoordinate().getX(), col))) {
-				return true;
-			}
+			return square.getCoordinate().equals(
+					new Coordinate(square.getCoordinate().getX(), col));
 
 		}
 		return false;
@@ -150,10 +148,7 @@ public class BoardManager {
 	 * @return boolean
 	 */
 	public boolean isGameOver() {
-		if (isCheckmate(PlayerType.WHITE) || isCheckmate(PlayerType.BLACK)) {
-			return true;
-		}
-		return false;
+		return isCheckmate(PlayerType.WHITE) || isCheckmate(PlayerType.BLACK);
 	}
 
 	/**
@@ -232,7 +227,7 @@ public class BoardManager {
 			board.setPiece(lastMove.getFinalCoordinate(), new Pawn(lastMove
 					.getPiece().getPlayer()));
 		}
-		// Flush the lastmove.
+		// Flush the last move.
 		movesList.remove(movesList.size() - 1);
 		// Switch the current players.
 		switchCurrentPlayer();
@@ -486,11 +481,7 @@ public class BoardManager {
 	 * @return boolean If the player is in check
 	 */
 	public boolean isCheck(PlayerType player) {
-		if (getAttackingPieces(player).length > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return getAttackingPieces(player).length > 0;
 	}
 
 	/**
@@ -523,9 +514,7 @@ public class BoardManager {
 			}
 			// Black can only move backward in a sense.
 			if (player == PlayerType.BLACK) {
-				if (initPos.getY() > finalPos.getY()) {
-					return true;
-				}
+				return initPos.getY() > finalPos.getY();
 			}
 
 		}
@@ -693,11 +682,7 @@ public class BoardManager {
 		}
 		// If it is moving to the same square.
 		// This is also checked by every piece but still for safety
-		if (initSquare.equals(finalSquare)) {
-			return false;
-		}
-
-		return true;
+		return !initSquare.equals(finalSquare);
 	}
 
 	/**
@@ -738,11 +723,8 @@ public class BoardManager {
 		// If piece is blocked by other pieces
 		Coordinate[] path = initSquare.getPiece().getPath(
 				initSquare.getCoordinate(), finalSquare.getCoordinate());
-		if (!isPathClear(path, initSquare.getCoordinate(),
-				finalSquare.getCoordinate())) {
-			return false;
-		}
-		return true;
+		return isPathClear(path, initSquare.getCoordinate(),
+				finalSquare.getCoordinate());
 	}
 
 	/**
