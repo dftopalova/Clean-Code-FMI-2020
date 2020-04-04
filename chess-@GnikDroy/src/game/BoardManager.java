@@ -6,6 +6,7 @@ import java.util.List;
 import custom_exceptions.UnsupportedPieceTypeException;
 import pieces.*;
 import player.PlayerType;
+import static game.common.Constants.*;
 
 /**
  * @author gnik
@@ -133,9 +134,9 @@ public class BoardManager {
             return false;
         }
         if (square.getPiece().getType() == PieceType.PAWN) {
-            int col = 7;
+            int col = LAST_POSITION;
             if (square.getPiece().getPlayer() == PlayerType.BLACK) {
-                col = 0;
+                col = FIRST_POSITION;
             }
             return square.getCoordinate().equals(
                     new Coordinate(square.getCoordinate().getX(), col));
@@ -177,8 +178,8 @@ public class BoardManager {
         Coordinate[] attackPath = attacker.getPiece().getPath(
                 attacker.getCoordinate(), kingSquare.getCoordinate());
         Square[][] allSquares = board.getSquares();
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
+        for (int x = FIRST_POSITION; x < BOARD_SIZE; x++) {
+            for (int y = FIRST_POSITION; y < BOARD_SIZE; y++) {
 
                 // If the king can move to a different square.
                 if (isValidMove(squareOfKing(player), board.getSquares()[x][y])
@@ -244,9 +245,9 @@ public class BoardManager {
      * @return Square[] The array of possible squares.
      */
     public Square[] getValidMoves(Coordinate coordinate) {
-        List<Square> moves = new ArrayList<Square>();
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
+        List<Square> moves = new ArrayList<>();
+        for (int x = FIRST_POSITION; x < BOARD_SIZE; x++) {
+            for (int y = FIRST_POSITION; y < BOARD_SIZE; y++) {
                 if (isValidMove(board.getSquare(coordinate),
                         board.getSquares()[x][y])) {
                     moves.add(board.getSquares()[x][y]);
@@ -268,8 +269,8 @@ public class BoardManager {
         List<Square> squares = new ArrayList<Square>();
         Square[][] allSquares = board.getSquares();
         Square kingSquare = squareOfKing(player);
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
+        for (int x = FIRST_POSITION; x < BOARD_SIZE; x++) {
+            for (int y = FIRST_POSITION; y < BOARD_SIZE; y++) {
                 Square tmpSquare = allSquares[x][y];
                 if (tmpSquare.isOccupied()) {
                     if (isValidMovement(tmpSquare, kingSquare)
@@ -403,7 +404,6 @@ public class BoardManager {
         Move lastMove = movesList.get(movesList.size() - 1);
         board.capturePiece(board.getSquare(lastMove.getFinalCoordinate()));
         board.makeMove(initSquare, finalSquare);
-
     }
 
     /**
@@ -456,8 +456,8 @@ public class BoardManager {
     private Square squareOfKing(PlayerType player) {
         Square[][] squares = board.getSquares();
         Square squareOfKing = null;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
+        for (int x = FIRST_POSITION; x < BOARD_SIZE; x++) {
+            for (int y = FIRST_POSITION; y < BOARD_SIZE; y++) {
                 Square square = squares[x][y];
                 if (square.isOccupied()) {
                     if (square.getPiece().getType() == PieceType.KING
@@ -563,9 +563,9 @@ public class BoardManager {
         if (kingSquare.getPiece().getType() == PieceType.KING
                 && rookSquare.getPiece().getType() == PieceType.ROOK) {
 
-            int col = 0;
+            int col = FIRST_POSITION;
             if (kingSquare.getPiece().getPlayer() == PlayerType.BLACK) {
-                col = 7;
+                col = LAST_POSITION;
             }
             // The peices are in correct position for castling.
 

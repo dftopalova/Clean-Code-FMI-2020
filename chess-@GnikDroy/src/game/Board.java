@@ -4,22 +4,14 @@ import custom_exceptions.MalformedRequestException;
 import pieces.*;
 import player.PlayerType;
 
+import static game.common.Constants.*;
+
 
 /**
  * @author gnik
  */
 
 public class Board {
-
-    private static final int BOARD_SIZE = 8;
-    private static final int FIRST_POSITION = 0;
-    private static final int SECOND_POSITION = 1;
-    private static final int THIRD_POSITION = 2;
-    private static final int FOURTH_POSITION = 3;
-    private static final int FIFTH_POSITION = 4;
-    private static final int SIXTH_POSITION = 5;
-    private static final int SEVENTH_POSITION = 6;
-    private static final int LAST_POSITION = 7;
 
     private Square[][] squares = new Square[BOARD_SIZE][BOARD_SIZE];
 
