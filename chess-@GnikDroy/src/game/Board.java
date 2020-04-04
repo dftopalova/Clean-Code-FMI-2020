@@ -10,7 +10,17 @@ import player.PlayerType;
 
 public class Board {
 
-    private Square[][] squares = new Square[8][8];
+    private static final int BOARD_SIZE = 8;
+    private static final int FIRST_POSITION = 0;
+    private static final int SECOND_POSITION = 1;
+    private static final int THIRD_POSITION = 2;
+    private static final int FOURTH_POSITION = 3;
+    private static final int FIFTH_POSITION = 4;
+    private static final int SIXTH_POSITION = 5;
+    private static final int SEVENTH_POSITION = 6;
+    private static final int LAST_POSITION = 7;
+
+    private Square[][] squares = new Square[BOARD_SIZE][BOARD_SIZE];
 
     /**
      * This initialized the board to it's original position.
@@ -34,9 +44,9 @@ public class Board {
      * Initializes all the squares
      */
     private void setSquares() {
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                squares[x][y] = new Square(new Coordinate(x, y));
+        for (int row = FIRST_POSITION; row < BOARD_SIZE; row++) {
+            for (int col = FIRST_POSITION; col < BOARD_SIZE; col++) {
+                squares[row][col] = new Square(new Coordinate(row, col));
             }
         }
 
@@ -46,22 +56,22 @@ public class Board {
      * Initializes and assigns all white Pieces.
      */
     private void setWhitePieces() {
-        squares[2][0].setPiece(new Bishop(PlayerType.WHITE));
-        squares[5][0].setPiece(new Bishop(PlayerType.WHITE));
-        squares[1][0].setPiece(new Knight(PlayerType.WHITE));
-        squares[6][0].setPiece(new Knight(PlayerType.WHITE));
-        squares[0][0].setPiece(new Rook(PlayerType.WHITE));
-        squares[7][0].setPiece(new Rook(PlayerType.WHITE));
-        squares[3][0].setPiece(new Queen(PlayerType.WHITE));
-        squares[4][0].setPiece(new King(PlayerType.WHITE));
-        squares[0][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[1][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[2][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[3][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[4][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[5][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[6][1].setPiece(new Pawn(PlayerType.WHITE));
-        squares[7][1].setPiece(new Pawn(PlayerType.WHITE));
+        squares[THIRD_POSITION][FIRST_POSITION].setPiece(new Bishop(PlayerType.WHITE));
+        squares[SIXTH_POSITION][FIRST_POSITION].setPiece(new Bishop(PlayerType.WHITE));
+        squares[SECOND_POSITION][FIRST_POSITION].setPiece(new Knight(PlayerType.WHITE));
+        squares[SEVENTH_POSITION][FIRST_POSITION].setPiece(new Knight(PlayerType.WHITE));
+        squares[FIRST_POSITION][FIRST_POSITION].setPiece(new Rook(PlayerType.WHITE));
+        squares[LAST_POSITION][FIRST_POSITION].setPiece(new Rook(PlayerType.WHITE));
+        squares[FOURTH_POSITION][FIRST_POSITION].setPiece(new Queen(PlayerType.WHITE));
+        squares[FIFTH_POSITION][FIRST_POSITION].setPiece(new King(PlayerType.WHITE));
+        squares[FIRST_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[SECOND_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[THIRD_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[FOURTH_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[FIFTH_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[SIXTH_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[SEVENTH_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
+        squares[LAST_POSITION][SECOND_POSITION].setPiece(new Pawn(PlayerType.WHITE));
 
     }
 
@@ -69,22 +79,22 @@ public class Board {
      * Initializes and sets all Black Pieces.
      */
     private void setBlackPieces() {
-        squares[2][7].setPiece(new Bishop(PlayerType.BLACK));
-        squares[5][7].setPiece(new Bishop(PlayerType.BLACK));
-        squares[1][7].setPiece(new Knight(PlayerType.BLACK));
-        squares[6][7].setPiece(new Knight(PlayerType.BLACK));
-        squares[0][7].setPiece(new Rook(PlayerType.BLACK));
-        squares[7][7].setPiece(new Rook(PlayerType.BLACK));
-        squares[3][7].setPiece(new Queen(PlayerType.BLACK));
-        squares[4][7].setPiece(new King(PlayerType.BLACK));
-        squares[0][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[1][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[2][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[3][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[4][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[5][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[6][6].setPiece(new Pawn(PlayerType.BLACK));
-        squares[7][6].setPiece(new Pawn(PlayerType.BLACK));
+        squares[THIRD_POSITION][LAST_POSITION].setPiece(new Bishop(PlayerType.BLACK));
+        squares[SIXTH_POSITION][LAST_POSITION].setPiece(new Bishop(PlayerType.BLACK));
+        squares[SECOND_POSITION][LAST_POSITION].setPiece(new Knight(PlayerType.BLACK));
+        squares[SEVENTH_POSITION][LAST_POSITION].setPiece(new Knight(PlayerType.BLACK));
+        squares[FIRST_POSITION][LAST_POSITION].setPiece(new Rook(PlayerType.BLACK));
+        squares[LAST_POSITION][LAST_POSITION].setPiece(new Rook(PlayerType.BLACK));
+        squares[FOURTH_POSITION][LAST_POSITION].setPiece(new Queen(PlayerType.BLACK));
+        squares[FIFTH_POSITION][LAST_POSITION].setPiece(new King(PlayerType.BLACK));
+        squares[FIRST_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[SECOND_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[THIRD_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[FOURTH_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[FIFTH_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[SIXTH_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[SEVENTH_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
+        squares[LAST_POSITION][SEVENTH_POSITION].setPiece(new Pawn(PlayerType.BLACK));
 
     }
 
@@ -107,10 +117,10 @@ public class Board {
      */
     public Square getSquare(Coordinate coordinate) {
         Square result = null;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (squares[x][y].getCoordinate().equals(coordinate)) {
-                    result = squares[x][y];
+        for (int row = FIRST_POSITION; row < BOARD_SIZE; row++) {
+            for (int col = FIRST_POSITION; col < BOARD_SIZE; col++) {
+                if (squares[row][col].getCoordinate().equals(coordinate)) {
+                    result = squares[row][col];
                 }
             }
         }
@@ -168,9 +178,9 @@ public class Board {
      * This prints the board in the command line.
      */
     public void printBoard() {
-        for (int y = 7; y >= 0; y--) {
-            for (int x = 0; x < 8; x++) {
-                System.out.print(squares[x][y].getPieceString() + " ");
+        for (int col = LAST_POSITION; col >= FIRST_POSITION; col--) {
+            for (int row = FIRST_POSITION; row < BOARD_SIZE; row++) {
+                System.out.print(squares[row][col].getPieceString() + " ");
             }
             System.out.print('\n');
         }
