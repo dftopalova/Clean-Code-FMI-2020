@@ -1,5 +1,6 @@
 package game;
 
+import custom_exceptions.MalformedRequestException;
 import pieces.*;
 import player.PlayerType;
 
@@ -121,10 +122,12 @@ public class Board {
             for (int col = FIRST_POSITION; col < BOARD_SIZE; col++) {
                 if (squares[row][col].getCoordinate().equals(coordinate)) {
                     result = squares[row][col];
+                    return result;
                 }
             }
         }
-        return result;
+
+        throw new MalformedRequestException("Requested coordinate is invalid");
     }
 
     /**
