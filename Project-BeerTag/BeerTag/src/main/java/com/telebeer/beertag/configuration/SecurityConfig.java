@@ -1,4 +1,4 @@
-package com.telebeer.beertag.configuration;
+:wqpackage com.telebeer.beertag.configuration;
 
 import com.telebeer.beertag.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
