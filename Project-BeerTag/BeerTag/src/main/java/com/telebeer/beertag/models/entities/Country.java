@@ -1,4 +1,4 @@
-package com.telebeer.beertag.models.Entities;
+package com.telebeer.beertag.models.entities;
 
 import javax.persistence.*;
 
