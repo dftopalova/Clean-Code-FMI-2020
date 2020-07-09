@@ -1,8 +1,8 @@
 ---
 applications:
-- name: BeerTag
-  memory: 768M
-  instances: 1
-  random-route: true
-  buildpacks:
-  - https://github.com/cloudfoundry/java-buildpack.git
+  - name: BeerTag
+    memory: 768M
+    instances: 1
+    random-route: true
+    buildpacks:
+      - https://github.com/cloudfoundry/java-buildpack.git
