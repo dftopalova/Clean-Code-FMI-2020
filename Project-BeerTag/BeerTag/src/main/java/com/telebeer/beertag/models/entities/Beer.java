@@ -1,4 +1,4 @@
-package com.telebeer.beertag.models.Entities;
+package com.telebeer.beertag.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.tomcat.util.codec.binary.Base64;
