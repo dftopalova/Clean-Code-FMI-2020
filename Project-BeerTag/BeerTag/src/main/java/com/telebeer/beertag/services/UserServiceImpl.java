@@ -1,10 +1,10 @@
 package com.telebeer.beertag.services;
 
+import com.telebeer.beertag.models.entities.User;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service

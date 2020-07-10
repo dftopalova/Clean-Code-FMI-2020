@@ -1,6 +1,6 @@
 package com.telebeer.beertag.repositories.contracts;
 
-import com.telebeer.beertag.models.Entities.BeerStyle;
+import com.telebeer.beertag.models.entities.BeerStyle;
 
 import java.util.List;
 

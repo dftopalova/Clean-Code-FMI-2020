@@ -1,7 +1,7 @@
 package com.telebeer.beertag.repositories.contracts;
 
 import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.Tag;
+import com.telebeer.beertag.models.entities.Tag;
 
 import java.util.Map;
 import java.util.Set;

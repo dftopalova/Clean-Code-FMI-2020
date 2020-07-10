@@ -2,7 +2,7 @@ package com.telebeer.beertag.repositories;
 
 import com.telebeer.beertag.exceptions.NoContentException;
 import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.Tag;
+import com.telebeer.beertag.models.entities.Tag;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
 import org.hibernate.HibernateException;

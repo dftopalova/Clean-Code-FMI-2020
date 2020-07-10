@@ -1,7 +1,8 @@
-package com.telebeer.beertag.models.Entities;
+package com.telebeer.beertag.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.telebeer.beertag.models.Entities.Beer;
+import com.telebeer.beertag.models.entities.Beer;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
