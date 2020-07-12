@@ -34,14 +34,13 @@ public interface UserService {
 
     Set<Beer> getUserWishlist(String username);
 
-    //TODO implement these methods
-//    void markBeerAsDranked(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException;
-//
-//    void markBeerAsWish(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException;
-//
-//    void removeBeerFromDrankList(String username, int beerId);
-//
-//    void removeBeerFromWishes(String username, int beerId);
-//
-//    User migrateFromDTOToUserEntity(UserDTO userDTO) throws IOException;
+    void markBeerAsDranked(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException;
+
+    void markBeerAsWish(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException;
+
+    void removeBeerFromDrankList(String username, int beerId);
+
+    void removeBeerFromWishes(String username, int beerId);
+
+    User migrateFromDTOToUserEntity(UserDTO userDTO) throws IOException;
 }

@@ -1,10 +1,18 @@
 package com.telebeer.beertag.services;
 
-import com.telebeer.beertag.models.entities.User;
+
+import com.telebeer.beertag.exceptions.*;
+import com.telebeer.beertag.models.DTOs.UserDTO;
+import com.telebeer.beertag.models.Entities.Beer;
+import com.telebeer.beertag.models.Entities.User;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -181,6 +189,73 @@ public class UserServiceImpl implements UserService {
         return drankBeers;
     }
 
+    @Override
+    public void markBeerAsDranked(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
+
+        User user = getByUsername(username);
+        Beer beer = beerRepository.getBeerById(beerId);
+
+        if (getUserDrunkBeersMap(username).containsKey(beer.getBeerId())) {
+            throw new BeerAlreadyMarkedException();
+        }
+
+        if (getUserWishlistMap(username).containsKey(beer.getBeerId())) {
+            throw new BeerExistsInOtherListException();
+        }
+
+        repository.markBeerAsDranked(user, beer);
+    }
+
+    @Override
+    public void markBeerAsWish(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
+
+        User user = getByUsername(username);
+        Beer beer = beerRepository.getBeerById(beerId);
+
+        if (getUserWishlistMap(username).containsKey(beer.getBeerId())) {
+            throw new BeerAlreadyMarkedException();
+        }
+
+        if (getUserDrunkBeersMap(username).containsKey(beer.getBeerId())) {
+            throw new BeerExistsInOtherListException();
+        }
+
+        repository.markBeerAsWish(user, beer);
+    }
+
+    @Override
+    public void removeBeerFromDrankList(String username, int beerId) {
+        User user = getByUsername(username);
+
+        Beer beer = user.getDrunkBeers().stream().filter(beer1 -> beer1.getBeerId() == beerId)
+                .findFirst().orElseThrow(() -> new NoContentException(BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE));
+
+        repository.removeBeerfromDrankList(user, beer);
+    }
+
+    @Override
+    public void removeBeerFromWishes(String username, int beerId) {
+        User user = getByUsername(username);
+
+        Beer beer = user.getBeersWishlist().stream().filter(beer1 -> beer1.getBeerId() == beerId)
+                .findFirst().orElseThrow(() -> new NoContentException(BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE));
+
+        repository.removeBeerFromWishes(user, beer);
+    }
+
+    @Override
+    public User migrateFromDTOToUserEntity(UserDTO userDTO) throws IOException {
+        User user = new User();
+
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setUserName(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        user.setPicture(userDTO.getPicture());
+
+        return user;
+    }
+
     private HashMap<Integer, Beer> getUserDrunkBeersMap(String username) {
         User user = getByUsername(username);
 
@@ -212,4 +287,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
