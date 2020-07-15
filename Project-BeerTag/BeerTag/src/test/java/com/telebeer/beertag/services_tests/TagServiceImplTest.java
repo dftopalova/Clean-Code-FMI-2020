@@ -1,7 +1,7 @@
-package com.telebeer.beertag.services;
+package com.telebeer.beertag.services_tests;
 
-import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.Tag;
+import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.services.*;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
 import org.junit.Assert;
 import org.junit.Before;

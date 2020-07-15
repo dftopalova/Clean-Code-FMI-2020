@@ -1,8 +1,7 @@
-package com.telebeer.beertag.services;
+package com.telebeer.beertag.services_tests;
 
-import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.Rating;
-import com.telebeer.beertag.models.Entities.User;
+import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.services.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.RatingRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;

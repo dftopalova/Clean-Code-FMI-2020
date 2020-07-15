@@ -1,7 +1,7 @@
 package com.telebeer.beertag.services;
 
 
-import com.telebeer.beertag.models.Entities.Country;
+import com.telebeer.beertag.models.entities.Country;
 import com.telebeer.beertag.repositories.contracts.CountryRepository;
 import com.telebeer.beertag.services.contracts.CountryService;
 import org.springframework.stereotype.Service;

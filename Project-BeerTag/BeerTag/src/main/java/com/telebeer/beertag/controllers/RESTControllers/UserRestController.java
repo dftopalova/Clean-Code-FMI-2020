@@ -1,10 +1,7 @@
 package com.telebeer.beertag.controllers.RESTControllers;
 
-
-import com.telebeer.beertag.exceptions.BeerAlreadyMarkedException;
-import com.telebeer.beertag.exceptions.BeerExistsInOtherListException;
-import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.User;
+import com.telebeer.beertag.exceptions.*;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -105,10 +102,8 @@ public class UserRestController {
     public void markBeerAsDranked(@PathVariable String username, @RequestParam int beerId) {
         try {
             service.markBeerAsDranked(username, beerId);
-        } catch (BeerAlreadyMarkedException e) {
+        } catch (BeerAlreadyMarkedException | BeerExistsInOtherListException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (BeerExistsInOtherListException e2) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e2.getMessage());
         }
     }
 
@@ -116,10 +111,8 @@ public class UserRestController {
     public void markBeerAsWish(@PathVariable String username, @RequestParam int beerId) {
         try {
             service.markBeerAsWish(username, beerId);
-        } catch (BeerAlreadyMarkedException e) {
+        } catch (BeerAlreadyMarkedException | BeerExistsInOtherListException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (BeerExistsInOtherListException e2) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e2.getMessage());
         }
     }
 

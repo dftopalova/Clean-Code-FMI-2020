@@ -1,7 +1,7 @@
 package com.telebeer.beertag.services.contracts;
 
-import com.telebeer.beertag.models.DTOs.BeerDTO;
-import com.telebeer.beertag.models.Entities.Beer;
+import com.telebeer.beertag.models.dtos.*;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.models.entities.Beer;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package com.telebeer.beertag.controllers.RESTControllers;
 
-import com.telebeer.beertag.models.Entities.BeerStyle;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.services.contracts.BeerStyleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

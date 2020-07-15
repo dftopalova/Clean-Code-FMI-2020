@@ -1,7 +1,6 @@
 package com.telebeer.beertag.repositories;
 
-import com.telebeer.beertag.exceptions.NoContentException;
-import com.telebeer.beertag.models.Entities.Beer;
+import com.telebeer.beertag.models.entities.Beer;
 import com.telebeer.beertag.models.entities.Tag;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
@@ -12,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
+import com.telebeer.beertag.exceptions.*;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,11 +1,8 @@
-package com.telebeer.beertag.services;
+package com.telebeer.beertag.services_tests;
 
-
-import com.telebeer.beertag.exceptions.CollisionException;
-import com.telebeer.beertag.exceptions.MalformedRequestException;
-import com.telebeer.beertag.exceptions.NoContentException;
-import com.telebeer.beertag.exceptions.ObjectNotFoundException;
-import com.telebeer.beertag.models.Entities.User;
+import com.telebeer.beertag.exceptions.*;
+import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.services.*;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,12 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import springfox.documentation.swagger2.mappers.ModelMapper;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;

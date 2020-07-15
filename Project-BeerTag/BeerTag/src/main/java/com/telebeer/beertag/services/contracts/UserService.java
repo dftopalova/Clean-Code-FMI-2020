@@ -1,9 +1,11 @@
 package com.telebeer.beertag.services.contracts;
 
-
+import com.telebeer.beertag.models.dtos.UserDTO;
 import com.telebeer.beertag.models.entities.Beer;
 import com.telebeer.beertag.models.entities.User;
+import com.telebeer.beertag.exceptions.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 

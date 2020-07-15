@@ -3,7 +3,6 @@ package com.telebeer.beertag.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.annotations.Formula;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -80,11 +79,11 @@ public class Beer implements Comparable<Beer> {
     }
 
     public int getBeerId() {
-        return beerId;
+        return id;
     }
 
     public void setBeerId(int beerId) {
-        this.beerId = beerId;
+        this.id = beerId;
     }
 
     public String getBeerName() {
@@ -168,19 +167,19 @@ public class Beer implements Comparable<Beer> {
     }
 
     public byte[] getBeerPicture() {
-        return beerPicture;
+        return picture;
     }
 
     public String printBeerPicture() {
-        return new String(Base64.encodeBase64(this.beerPicture));
+        return new String(Base64.encodeBase64(this.picture));
     }
 
     public void setBeerPicture(MultipartFile beerPicture) throws IOException {
-        this.beerPicture = beerPicture.getBytes();
+        this.picture = beerPicture.getBytes();
     }
 
     public void updateBeerPicture(byte[] newPicture) {
-        this.beerPicture = newPicture;
+        this.picture = newPicture;
     }
 
     public boolean isDeleted() {

@@ -1,6 +1,6 @@
 package com.telebeer.beertag.services.contracts;
 
-import com.telebeer.beertag.models.Entities.Rating;
+import com.telebeer.beertag.models.entities.*;
 
 import java.util.Set;
 

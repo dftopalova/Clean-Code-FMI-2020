@@ -1,6 +1,7 @@
 package com.telebeer.beertag.services.contracts;
 
-import com.telebeer.beertag.models.Entities.Country;
+import com.telebeer.beertag.models.*;
+import com.telebeer.beertag.models.entities.Country;
 
 import java.util.Map;
 

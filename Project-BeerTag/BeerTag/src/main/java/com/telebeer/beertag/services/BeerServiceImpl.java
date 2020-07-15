@@ -1,10 +1,8 @@
 package com.telebeer.beertag.services;
 
-import com.telebeer.beertag.exceptions.CollisionException;
-import com.telebeer.beertag.exceptions.MalformedRequestException;
-import com.telebeer.beertag.models.entities.Beer;
-import com.telebeer.beertag.models.entities.Country;
-import com.telebeer.beertag.models.entities.User;
+import com.telebeer.beertag.exceptions.*;
+import com.telebeer.beertag.models.dtos.BeerDTO;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.contracts.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -235,6 +233,7 @@ public class BeerServiceImpl implements BeerService {
 
     }
 
+    @Override
     public Beer migrateFromDTOToEntity(BeerDTO beerDTO, Principal principal) throws IOException {
         Beer beer = new Beer();
 

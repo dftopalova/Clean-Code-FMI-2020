@@ -1,10 +1,7 @@
 package com.telebeer.beertag.utilities;
 
 
-import com.telebeer.beertag.exceptions.CollisionException;
-import com.telebeer.beertag.exceptions.MalformedRequestException;
-import com.telebeer.beertag.exceptions.NoContentException;
-import com.telebeer.beertag.exceptions.ObjectNotFoundException;
+import com.telebeer.beertag.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.telebeer.beertag.models.DTOs;
+package com.telebeer.beertag.models.dtos;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,8 +1,7 @@
 package com.telebeer.beertag.controllers.RESTControllers;
 
 
-import com.telebeer.beertag.models.Entities.Brewery;
-import com.telebeer.beertag.models.Entities.Country;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.services.contracts.BreweryService;
 import com.telebeer.beertag.services.contracts.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;

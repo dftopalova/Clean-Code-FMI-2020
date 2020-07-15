@@ -1,8 +1,6 @@
 package com.telebeer.beertag.repositories;
 
-import com.telebeer.beertag.models.entities.Beer;
-import com.telebeer.beertag.models.entities.User;
-
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

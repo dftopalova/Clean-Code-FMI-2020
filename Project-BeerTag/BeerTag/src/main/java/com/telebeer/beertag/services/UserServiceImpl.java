@@ -1,10 +1,8 @@
 package com.telebeer.beertag.services;
 
-
 import com.telebeer.beertag.exceptions.*;
-import com.telebeer.beertag.models.DTOs.UserDTO;
-import com.telebeer.beertag.models.Entities.Beer;
-import com.telebeer.beertag.models.Entities.User;
+import com.telebeer.beertag.models.dtos.*;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;

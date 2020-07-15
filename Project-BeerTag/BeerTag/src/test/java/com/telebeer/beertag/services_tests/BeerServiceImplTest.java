@@ -1,8 +1,9 @@
-package com.telebeer.beertag.services;
+package com.telebeer.beertag.services_tests;
 
-import com.telebeer.beertag.exceptions.CollisionException;
-import com.telebeer.beertag.models.Entities.*;
+import com.telebeer.beertag.exceptions.*;
+import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
+import com.telebeer.beertag.services.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
