@@ -54,7 +54,7 @@ $(document).ready(function () {
     $("body").on("click", "#btn-del-beer", function () {
         console.log("REMOVE TAG CLICKED");
         let tagId = $(this).attr('value');
-        let tempUrl = tagsUrl + `/delete/${tagId}`;
+        let tempUrl = tagsUrl + `/${tagId}`;
         console.log(tempUrl);
 
         swal("Are you sure? This will remove it from all records!", {

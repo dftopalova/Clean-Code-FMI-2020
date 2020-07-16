@@ -21,12 +21,12 @@ public class BeerStyleRestController {
 
     @GetMapping
     public List<BeerStyle> getAllStyles() {
-        return service.getAllBeerStyles();
+        return service.getAll();
     }
 
     @PostMapping
-    public String addBeerStyle(@RequestBody BeerStyle beerStyle) {
-        return service.addBeerStyle(beerStyle);
+    public String createBeerStyle(@RequestBody BeerStyle beerStyle) {
+        return service.createBeerStyle(beerStyle);
     }
 
     @GetMapping("/{id}")
@@ -34,15 +34,9 @@ public class BeerStyleRestController {
         return service.getById(id);
     }
 
-    @GetMapping("/style")
-    public BeerStyle getBeerStyleByName(@RequestParam String name) {
-        return service.getBeerStyleByName(name);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteBeerStyle(@PathVariable int id) {
         service.deleteBeerStyle(id);
     }
-
 
 }

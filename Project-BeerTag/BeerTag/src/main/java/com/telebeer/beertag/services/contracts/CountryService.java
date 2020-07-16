@@ -1,19 +1,18 @@
 package com.telebeer.beertag.services.contracts;
 
-import com.telebeer.beertag.models.*;
 import com.telebeer.beertag.models.entities.Country;
 
 import java.util.Map;
 
 public interface CountryService {
 
-    Map<Integer, Country> getAll() ;
+    Map<Integer, Country> getAll();
 
-    Country getCountryById(int id);
+    Country getById(int id);
 
-    Country getCountryByName(String name);
+    Country getByName(String name);
 
-    Country getCountryByCode(String countryCode);
+    Country getByCode(String countryCode);
 
     Map<Integer, Country> getCountriesByContinentName(String continentName);
 }

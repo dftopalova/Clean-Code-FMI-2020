@@ -29,7 +29,6 @@ public class RatingRestController {
         return service.getBeerRatings(beerId);
     }
 
-
     @GetMapping("/beer/{id}")
     public int getBeerAvgRating(@PathVariable int id) {
         return service.getAvgRatingByBeerId(id);

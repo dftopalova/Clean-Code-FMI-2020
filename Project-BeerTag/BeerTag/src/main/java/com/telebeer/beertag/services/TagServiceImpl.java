@@ -20,17 +20,17 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Map<String, Tag> getAllTags() {
+    public Map<String, Tag> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public Tag getTagById(int id) {
+    public Tag getById(int id) {
         return repository.getById(id);
     }
 
     @Override
-    public Tag getTagByName(String tag) {
+    public Tag getByName(String tag) {
         return repository.getByName(tag);
     }
 

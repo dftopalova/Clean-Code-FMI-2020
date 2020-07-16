@@ -25,13 +25,12 @@ public class UserRestController {
 
     @PostMapping
     public String addUser(@Valid @RequestBody User user) {
-
-        return service.addUser(user);
+        return service.createUser(user);
     }
 
     @GetMapping
     public List<User> getAllUsers() {
-        return service.getAllUsers();
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
@@ -47,19 +46,21 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public String updateProfileInfo(@PathVariable int id,
-                                  @RequestBody(required = false) User user) {
+    public String updateUser(@PathVariable int id,
+                             @RequestBody(required = false) User user) {
 
-       return service.updateProfileInfo(id, user);
+        return service.updateUser(id, user);
     }
+
     @PutMapping("/username/{username}")
-    public String updateProfileInfoByUserName(@PathVariable String username,
-                                  @RequestBody(required = false) User user) {
-        int tempId = getUserByUsername(username).getId();
-        user.setId(tempId);
-      return   service.updateProfileInfo(tempId, user);
-    }
+    public String updateUserByUsername(@PathVariable String username,
+                                       @RequestBody(required = false) User user) {
 
+        int userId = getUserByUsername(username).getId();
+        user.setId(userId);
+
+        return service.updateUser(userId, user);
+    }
 
     @DeleteMapping("/delete/{id}")
     public void hardDeleteUser(@PathVariable int id) {
@@ -75,9 +76,6 @@ public class UserRestController {
     public List<User> sort(@RequestParam(value = "direction", required = false) String direction,
                            @RequestParam(value = "firstName", required = false) String firstName,
                            @RequestParam(value = "lastName", required = false) String lastName) {
-        if (direction == null) {
-            return service.getAllUsers();
-        }
         return service.sort(direction, firstName, lastName);
     }
 
@@ -93,37 +91,29 @@ public class UserRestController {
         return service.getUserWishlist(username);
     }
 
-    @GetMapping("/{username}/drankBeers")
-    public Set<Beer> getUserDrankBeers(@PathVariable String username) {
-        return service.getUserDrankBeers(username);
+    @GetMapping("/{username}/testedBeers")
+    public Set<Beer> getUserTestedBeers(@PathVariable String username) {
+        return service.getUserTestedBeers(username);
     }
 
-    @PutMapping("/{username}/markAsDrank")
-    public void markBeerAsDranked(@PathVariable String username, @RequestParam int beerId) {
-        try {
-            service.markBeerAsDranked(username, beerId);
-        } catch (BeerAlreadyMarkedException | BeerExistsInOtherListException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    @PutMapping("/{username}/markAsTested")
+    public void markBeerAsTested(@PathVariable String username, @RequestParam int beerId) {
+        service.markBeerAsTested(username, beerId);
     }
 
     @PutMapping("/{username}/markAsWish")
     public void markBeerAsWish(@PathVariable String username, @RequestParam int beerId) {
-        try {
-            service.markBeerAsWish(username, beerId);
-        } catch (BeerAlreadyMarkedException | BeerExistsInOtherListException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        service.markBeerAsWish(username, beerId);
     }
 
-    @DeleteMapping("/{username}/drankBeers")
-    public void removeBeerFromDrankList(@PathVariable String username, @RequestParam int beerId) {
-        service.removeBeerFromDrankList(username, beerId);
+    @DeleteMapping("/{username}/testedBeers")
+    public void removeBeerFromTestedList(@PathVariable String username, @RequestParam int beerId) {
+        service.removeBeerFromTestedList(username, beerId);
     }
 
     @DeleteMapping("/{username}/wishlist")
     public void removeBeerFromWishlist(@PathVariable String username, @RequestParam int beerId) {
-        service.removeBeerFromWishes(username, beerId);
+        service.removeBeerFromWishList(username, beerId);
     }
 
     @GetMapping("/username/{username}")

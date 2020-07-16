@@ -49,7 +49,7 @@ public class CountryServiceImplTest {
 
         when(countryRepository.getById(0)).thenReturn(country1);
 
-        Country result = countryServiceImpl.getCountryById(0);
+        Country result = countryServiceImpl.getById(0);
         Assert.assertEquals(country1, result);
     }
 
@@ -64,7 +64,7 @@ public class CountryServiceImplTest {
 
         when(countryRepository.getByName("country1")).thenReturn(country1);
 
-        Country result = countryServiceImpl.getCountryByName("country1");
+        Country result = countryServiceImpl.getByName("country1");
         Assert.assertEquals(country1, result);
     }
 
@@ -77,7 +77,7 @@ public class CountryServiceImplTest {
 
         when(countryRepository.getByCode("EU")).thenReturn(country1);
 
-        Country result = countryServiceImpl.getCountryByCode("EU");
+        Country result = countryServiceImpl.getByCode("EU");
         Assert.assertEquals(country1, result);
     }
 

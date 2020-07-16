@@ -4,6 +4,7 @@ package com.telebeer.beertag.services;
 import com.telebeer.beertag.models.entities.Country;
 import com.telebeer.beertag.repositories.contracts.CountryRepository;
 import com.telebeer.beertag.services.contracts.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class CountryServiceImpl implements CountryService {
     private CountryRepository countryRepository;
 
+    @Autowired
     public CountryServiceImpl(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }
@@ -22,17 +24,17 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Country getCountryById(int id) {
+    public Country getById(int id) {
         return countryRepository.getById(id);
     }
 
     @Override
-    public Country getCountryByName(String name) {
+    public Country getByName(String name) {
         return countryRepository.getByName(name);
     }
 
     @Override
-    public Country getCountryByCode(String countryCode) {
+    public Country getByCode(String countryCode) {
         return countryRepository.getByCode(countryCode);
     }
 

@@ -34,7 +34,7 @@ public class BreweryServiceImplTest {
 
         when(repository.getAll()).thenReturn(expected);
 
-        List<Brewery> result = breweryServiceImpl.getAllBreweries();
+        List<Brewery> result = breweryServiceImpl.getAll();
         Assert.assertEquals(expected, result);
     }
 
@@ -55,7 +55,7 @@ public class BreweryServiceImplTest {
 
         when(repository.getByName("brew1")).thenReturn(brew1);
 
-        Brewery result = breweryServiceImpl.getBreweryByName("brew1");
+        Brewery result = breweryServiceImpl.getByName("brew1");
         Assert.assertEquals(brew1, result);
     }
 
@@ -69,7 +69,7 @@ public class BreweryServiceImplTest {
         String exp = "{\"message\": \"Brewery- %s successfully created\"}";
         when(repository.createBrewery(any())).thenReturn(exp);
 
-        String result = breweryServiceImpl.addBrewery(new Brewery());
+        String result = breweryServiceImpl.createBrewery(new Brewery());
         Assert.assertEquals(exp, result);
     }
 }

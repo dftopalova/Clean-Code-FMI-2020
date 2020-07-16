@@ -5,6 +5,8 @@ import com.telebeer.beertag.models.dtos.BeerDTO;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.contracts.*;
+import com.telebeer.beertag.utilities.ValidationHelper;
+import javafx.scene.chart.ValueAxis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class BeerServiceImpl implements BeerService {
     private static final String BEER_WITH_SAME_NAME_AND_STYLE_EXISTS =
             "{\"message\": \"Beer with name - %s and style %s already exists\"}";
     private static final String ALCOHOL_BY_VOLUME_INVALID_MESSAGE = "Alcohol by volume must be between 0 and 60 %!";
+    private static final int MIN_ALCOHOL_BY_VOLUME_VALUE = 0;
+    private static final int MAX_ALCOHOL_BY_VOLUME_VALUE = 60;
+    private static final String ERR_NO_SUCH_SORTING_CRITERIA = "No such sorting criteria!";
 
     private BeerRepository repository;
     private CountryService countryService;
@@ -39,17 +44,17 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public List<Beer> getAllBeers() {
+    public List<Beer> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public Beer getBeerById(int id) {
+    public Beer getById(int id) {
         return repository.getBeerById(id);
     }
 
     @Override
-    public List<Beer> getBeerByName(String name) {
+    public List<Beer> getAllByName(String name) {
         return repository.getBeerByName(name);
     }
 
@@ -61,7 +66,7 @@ public class BeerServiceImpl implements BeerService {
                     , beer.getName(), beer.getStyle().getName()));
         }
 
-        if (beer.getABV() < 0 && beer.getABV() > 60) {
+        if (ValidationHelper.isNumberInRange(beer.getABV(), MIN_ALCOHOL_BY_VOLUME_VALUE, MAX_ALCOHOL_BY_VOLUME_VALUE)) {
             throw new MalformedRequestException(ALCOHOL_BY_VOLUME_INVALID_MESSAGE);
         }
 
@@ -70,21 +75,21 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public String updateBeer(int id, Beer beer) {
-        Beer beerToEdit = getBeerById(id);
+        Beer beerToEdit = getById(id);
 
-        if (beer.getName() != null && !beer.getName().isEmpty()) {
+        if (ValidationHelper.isStringValid(beer.getName())) {
             beerToEdit.setName(beer.getName());
         }
-        if (beer.getABV() < 0 && beer.getABV() > 60) {
+        if (ValidationHelper.isNumberInRange(beer.getABV(), MIN_ALCOHOL_BY_VOLUME_VALUE, MAX_ALCOHOL_BY_VOLUME_VALUE)) {
             throw new MalformedRequestException(ALCOHOL_BY_VOLUME_INVALID_MESSAGE);
         } else {
             beerToEdit.setABV(beer.getABV());
         }
-        if (beer.getDescription() != null && !beer.getDescription().isEmpty()) {
+        if (ValidationHelper.isStringValid(beer.getDescription())) {
             beerToEdit.setDescription(beer.getDescription());
         }
 
-       return repository.updateBeer(beerToEdit);
+        return repository.updateBeer(beerToEdit);
     }
 
     @Override
@@ -115,9 +120,8 @@ public class BeerServiceImpl implements BeerService {
 
     }
 
-    @Override
-    public List<Beer> getBeersByStyle(String style) {
-        List<Beer> result = getAllBeers()
+    private List<Beer> getBeersByStyle(String style) {
+        List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getStyle().getName().equalsIgnoreCase(style))
                 .collect(Collectors.toList());
@@ -125,9 +129,8 @@ public class BeerServiceImpl implements BeerService {
         return result;
     }
 
-    @Override
-    public List<Beer> getBeersByCountry(String countryName) {
-        List<Beer> result = getAllBeers()
+    private List<Beer> getBeersByCountry(String countryName) {
+        List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getOriginCountry().getName().equalsIgnoreCase(countryName))
                 .collect(Collectors.toList());
@@ -135,9 +138,8 @@ public class BeerServiceImpl implements BeerService {
         return result;
     }
 
-    @Override
-    public List<Beer> getBeersByStyleAndCountry(String style, String countryName) {
-        List<Beer> result = getAllBeers()
+    private List<Beer> getBeersByStyleAndCountry(String style, String countryName) {
+        List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getOriginCountry().getName().equalsIgnoreCase(countryName)
                         && beer.getStyle().getName().equalsIgnoreCase(style))
@@ -148,13 +150,13 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public List<Beer> sortBeers(String ABVCriteria, String ratingCriteria, String nameCriteria) {
-        List<Beer> result = getAllBeers();
+        List<Beer> result = getAll();
 
-        if (ABVCriteria != null && !ABVCriteria.isEmpty()) {
+        if (ValidationHelper.isStringValid(ABVCriteria)) {
             result = sortByABV(ABVCriteria);
-        } else if (ratingCriteria != null && !ratingCriteria.isEmpty()) {
+        } else if (ValidationHelper.isStringValid(ratingCriteria)) {
             result = sortByRating(ratingCriteria);
-        } else if (nameCriteria != null && !nameCriteria.isEmpty()) {
+        } else if (ValidationHelper.isStringValid(nameCriteria)) {
             result = sortByName(nameCriteria);
         }
 
@@ -162,7 +164,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     private List<Beer> sortByName(String nameCriteria) {
-        List<Beer> result = getAllBeers();
+        List<Beer> result = getAll();
 
         nameCriteria = nameCriteria.toLowerCase();
         switch (nameCriteria) {
@@ -178,7 +180,7 @@ public class BeerServiceImpl implements BeerService {
                         .collect(Collectors.toList());
                 break;
             default:
-                throw new IllegalArgumentException("No such sorting criteria!");
+                throw new IllegalArgumentException(ERR_NO_SUCH_SORTING_CRITERIA);
         }
 
         return result;
@@ -186,7 +188,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     private List<Beer> sortByRating(String ratingCriteria) {
-        List<Beer> result = getAllBeers();
+        List<Beer> result = getAll();
 
         ratingCriteria = ratingCriteria.toLowerCase();
         switch (ratingCriteria) {
@@ -202,7 +204,7 @@ public class BeerServiceImpl implements BeerService {
                         .collect(Collectors.toList());
                 break;
             default:
-                throw new IllegalArgumentException("No such sorting criteria!");
+                throw new IllegalArgumentException(ERR_NO_SUCH_SORTING_CRITERIA);
         }
 
         return result;
@@ -210,7 +212,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     private List<Beer> sortByABV(String abvCriteria) {
-        List<Beer> result = getAllBeers();
+        List<Beer> result = getAll();
 
         abvCriteria = abvCriteria.toLowerCase();
         switch (abvCriteria) {
@@ -226,7 +228,7 @@ public class BeerServiceImpl implements BeerService {
                         .collect(Collectors.toList());
                 break;
             default:
-                throw new IllegalArgumentException("No such sorting criteria!");
+                throw new IllegalArgumentException(ERR_NO_SUCH_SORTING_CRITERIA);
         }
 
         return result;
@@ -243,16 +245,16 @@ public class BeerServiceImpl implements BeerService {
 
         beer.setDescription(beerDTO.getDescription());
 
-        Brewery brewery = breweryService.getBreweryByName(beerDTO.getBrewery());
+        Brewery brewery = breweryService.getByName(beerDTO.getBrewery());
         beer.setBrewery(brewery);
 
         User user = userService.getByUsername(principal.getName());
         beer.setCreator(user);
 
-        BeerStyle beerStyle = beerStyleService.getBeerStyleByName(beerDTO.getBeerStyle());
+        BeerStyle beerStyle = beerStyleService.getByName(beerDTO.getBeerStyle());
         beer.setStyle(beerStyle);
 
-        Country country = countryService.getCountryByName(beerDTO.getOriginCountry());
+        Country country = countryService.getByName(beerDTO.getOriginCountry());
         beer.setOriginCountry(country);
 
         beer.setBeerPicture(beerDTO.getPicture());
@@ -261,7 +263,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     private boolean beerExists(String beerName, String beerStyle) {
-        return getAllBeers().stream()
+        return getAll().stream()
                 .anyMatch(beer -> beer.getName().equalsIgnoreCase(beerName)
                         && beer.getStyle().getName().equalsIgnoreCase(beerStyle));
     }

@@ -9,11 +9,11 @@ import java.security.Principal;
 import java.util.List;
 
 public interface BeerService {
-    List<Beer> getAllBeers();
+    List<Beer> getAll();
 
-    Beer getBeerById(int id);
+    Beer getById(int id);
 
-    List<Beer> getBeerByName(String name);
+    List<Beer> getAllByName(String name);
 
     void createBeer(Beer beer);
 
@@ -22,12 +22,6 @@ public interface BeerService {
     void deleteBeer(int id);
 
     List<Beer> getBeersByCreator(String creatorUsername);
-
-    List<Beer> getBeersByStyle(String style);
-
-    List<Beer> getBeersByCountry(String countryName);
-
-    List<Beer> getBeersByStyleAndCountry(String style, String countryName);
 
     List<Beer> filterBeers(String style, String countryName);
 

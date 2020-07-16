@@ -21,7 +21,7 @@ public class TagRestController {
 
     @GetMapping
     public Map<String, Tag> getAllTags() {
-        return service.getAllTags();
+        return service.getAll();
     }
 
     @PostMapping
@@ -49,7 +49,7 @@ public class TagRestController {
         service.removeTagFromBeer(tagId, beerId);
     }
 
-    @DeleteMapping("/delete/{tagId}")
+    @DeleteMapping("/{tagId}")
     public void deleteTag(@PathVariable int tagId) {
         service.deleteTag(tagId);
     }

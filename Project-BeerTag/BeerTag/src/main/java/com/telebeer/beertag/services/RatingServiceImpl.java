@@ -43,8 +43,6 @@ public class RatingServiceImpl implements RatingService {
         ratingToAdd.setUser(user);
         ratingToAdd.setRating(rating);
 
-        //beer.getRatings().add(ratingToAdd);
-
         repository.rateBeer(user, beer, ratingToAdd);
     }
 
@@ -57,8 +55,8 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public int getAvgRatingByBeerId(int beerId) {
-        Beer temp = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getBeerById(beerId);
 
-        return (int) temp.getAverageRating();
+        return (int) beer.getAverageRating();
     }
 }

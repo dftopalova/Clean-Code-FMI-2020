@@ -32,7 +32,7 @@ public class BeerStyleServiceImplTest {
 
         when(repository.createBeerStyle(any())).thenReturn(exp);
 
-        String result = beerStyleServiceImpl.addBeerStyle(new BeerStyle());
+        String result = beerStyleServiceImpl.createBeerStyle(new BeerStyle());
         Assert.assertEquals(exp, result);
     }
 
@@ -46,7 +46,7 @@ public class BeerStyleServiceImplTest {
 
         when(repository.getAll()).thenReturn(exp);
 
-        List<BeerStyle> result = beerStyleServiceImpl.getAllBeerStyles();
+        List<BeerStyle> result = beerStyleServiceImpl.getAll();
         Assert.assertEquals(exp, result);
     }
 
@@ -67,7 +67,7 @@ public class BeerStyleServiceImplTest {
 
         when(repository.getByName("style1")).thenReturn(style1 );
 
-        BeerStyle result = beerStyleServiceImpl.getBeerStyleByName("style1");
+        BeerStyle result = beerStyleServiceImpl.getByName("style1");
         Assert.assertEquals(style1, result);
     }
 

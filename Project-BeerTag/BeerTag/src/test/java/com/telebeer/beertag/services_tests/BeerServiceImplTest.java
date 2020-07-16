@@ -63,9 +63,9 @@ public class BeerServiceImplTest {
         user.setUserName("test");
         user.setPassword("test");
 
-        when(beerStyleServiceTest.getBeerStyleByName("Light")).thenReturn(style);
-        when(countryServiceMock.getCountryByName("Bulgaria")).thenReturn(country);
-        when(breweryServiceMock.getBreweryByName("Jagerhof")).thenReturn(brewery);
+        when(beerStyleServiceTest.getByName("Light")).thenReturn(style);
+        when(countryServiceMock.getByName("Bulgaria")).thenReturn(country);
+        when(breweryServiceMock.getByName("Jagerhof")).thenReturn(brewery);
         when(userServiceMock.getByUsername("test")).thenReturn(user);
         beer.setStyle(style);
         beer.setOriginCountry(country);
@@ -82,7 +82,7 @@ public class BeerServiceImplTest {
         when(mockRepository.getAll()).thenReturn(expectedResult);
 
         // Act
-        List<Beer> result = beerService.getAllBeers();
+        List<Beer> result = beerService.getAll();
 
         // Assert
         assertEquals(expectedResult, result);
@@ -95,7 +95,7 @@ public class BeerServiceImplTest {
                 .thenReturn(new Beer());
 
         //Act
-        Beer result = beerService.getBeerById(1);
+        Beer result = beerService.getById(1);
         result.setName("Kamenitza");
 
         //Assert
@@ -110,7 +110,7 @@ public class BeerServiceImplTest {
         when(mockRepository.getBeerByName("beer")).thenReturn(Arrays.asList());
 
         // Act
-        final List<Beer> result = beerService.getBeerByName(name);
+        final List<Beer> result = beerService.getAllByName(name);
 
         // Assert
         assertEquals(expectedResult, result);
@@ -140,7 +140,7 @@ public class BeerServiceImplTest {
         List<Beer> beers = new ArrayList<>();
         beers.add(testBeer);
 
-        when(beerService.getAllBeers()).thenReturn(beers);
+        when(beerService.getAll()).thenReturn(beers);
 
         //Act,Assert
         beerService.createBeer(beer);
@@ -211,7 +211,7 @@ public class BeerServiceImplTest {
         tmpStyle.setName("Dark");
         allBeers.get(1).setStyle(tmpStyle);
 
-        when(beerService.getAllBeers()).thenReturn(allBeers);
+        when(beerService.getAll()).thenReturn(allBeers);
         //Act
         List<Beer> result = beerService.getBeersByStyle("Light");
 
@@ -234,7 +234,7 @@ public class BeerServiceImplTest {
         tmpStyle.setName("Dark");
         allBeers.get(1).setStyle(tmpStyle);
 
-        when(beerService.getAllBeers()).thenReturn(allBeers);
+        when(beerService.getAll()).thenReturn(allBeers);
         //Act
         List<Beer> result = beerService.filterBeers("Light", null);
 
@@ -257,7 +257,7 @@ public class BeerServiceImplTest {
         tmpCountry.setName("Belgium");
         allBeers.get(1).setOriginCountry(tmpCountry);
 
-        when(beerService.getAllBeers()).thenReturn(allBeers);
+        when(beerService.getAll()).thenReturn(allBeers);
         //Act
         List<Beer> result = beerService.getBeersByCountry("Bulgaria");
 
@@ -280,7 +280,7 @@ public class BeerServiceImplTest {
         tmpCountry.setName("Belgium");
         allBeers.get(1).setOriginCountry(tmpCountry);
 
-        when(beerService.getAllBeers()).thenReturn(allBeers);
+        when(beerService.getAll()).thenReturn(allBeers);
         //Act
         List<Beer> result = beerService.filterBeers(null, "Bulgaria");
 
@@ -298,7 +298,7 @@ public class BeerServiceImplTest {
         beers.get(1).setABV(4);
         beers.get(2).setABV(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers("desc", null, null);
         double[] arr = {beers.get(0).getABV(), beers.get(1).getABV(), beers.get(2).getABV()};
@@ -319,7 +319,7 @@ public class BeerServiceImplTest {
         beers.get(1).setABV(4);
         beers.get(2).setABV(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers("asc", null, null);
         double[] arr = {beers.get(0).getABV(), beers.get(1).getABV(), beers.get(2).getABV()};
@@ -341,7 +341,7 @@ public class BeerServiceImplTest {
         beers.get(1).setABV(4);
         beers.get(2).setABV(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers("des", null, null);
     }
@@ -356,7 +356,7 @@ public class BeerServiceImplTest {
         beers.get(1).setAverageRating(4);
         beers.get(2).setAverageRating(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, "desc", null);
         double[] arr = {beers.get(0).getAverageRating(), beers.get(1).getAverageRating(), beers.get(2).getAverageRating()};
@@ -378,7 +378,7 @@ public class BeerServiceImplTest {
         beers.get(1).setAverageRating(4);
         beers.get(2).setAverageRating(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, "asc", null);
         double[] arr = {beers.get(0).getAverageRating(), beers.get(1).getAverageRating(), beers.get(2).getAverageRating()};
@@ -400,7 +400,7 @@ public class BeerServiceImplTest {
         beers.get(1).setAverageRating(4);
         beers.get(2).setAverageRating(5);
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, "asce", null);
     }
@@ -415,7 +415,7 @@ public class BeerServiceImplTest {
         beers.get(1).setName("Ariana");
         beers.get(2).setName("Stella");
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, null, "asc");
         String[] arr = {beers.get(0).getName(), beers.get(1).getName(), beers.get(2).getName()};
@@ -437,7 +437,7 @@ public class BeerServiceImplTest {
         beers.get(1).setName("Ariana");
         beers.get(2).setName("Stella");
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, null, "desc");
         String[] arr = {beers.get(0).getName(), beers.get(1).getName(), beers.get(2).getName()};
@@ -459,7 +459,7 @@ public class BeerServiceImplTest {
         beers.get(1).setName("Ariana");
         beers.get(2).setName("Stella");
 
-        Mockito.when(beerService.getAllBeers()).thenReturn(beers);
+        Mockito.when(beerService.getAll()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, null, "descend");
     }

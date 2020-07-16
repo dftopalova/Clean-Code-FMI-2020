@@ -55,7 +55,7 @@ public class UserServiceImplTest {
         Mockito.when(userRepository.getAll())
                 .thenReturn(expected);
 
-        List<User> result = userService.getAllUsers();
+        List<User> result = userService.getAll();
 
         Assert.assertEquals(3, result.size());
         Assert.assertTrue(result.get(0).isEnabled());
@@ -261,7 +261,7 @@ public class UserServiceImplTest {
         updUser.setLastName("lname");
         updUser.setUserName("user1");
 
-        userService.updateProfileInfo(1,updUser);
+        userService.updateUser(1,updUser);
 
         Mockito.verify(userRepository, Mockito.times(1)).getById(1);
         Assert.assertEquals("fname", updUser.getFirstName());
@@ -275,7 +275,7 @@ public class UserServiceImplTest {
         User user1 = new User();
         user1.setEnabled(true);
 
-        userService.addUser(user1);
+        userService.createUser(user1);
 
         verify(userRepository).createUser(user1);
     }
@@ -290,7 +290,7 @@ public class UserServiceImplTest {
 
         Mockito.when(userRepository.getAll()).thenReturn(res);
 
-        userService.addUser(user1);
+        userService.createUser(user1);
 
     }
 

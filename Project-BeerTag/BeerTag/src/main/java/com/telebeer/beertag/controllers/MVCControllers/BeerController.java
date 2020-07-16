@@ -38,7 +38,7 @@ public class BeerController {
 
     @GetMapping("/beers")
     public String showAllBeers(Model model) {
-        model.addAttribute("beers", beerService.getAllBeers());
+        model.addAttribute("beers", beerService.getAll());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in user's username from the ContextUser
@@ -91,7 +91,7 @@ public class BeerController {
 
     private List<String> fetchBeerStylesNames() {
         List<String> styles = new ArrayList<>();
-        for (BeerStyle style : beerStyleService.getAllBeerStyles()) {
+        for (BeerStyle style : beerStyleService.getAll()) {
             styles.add(style.getName());
         }
         return styles;
@@ -107,7 +107,7 @@ public class BeerController {
 
     private List<String> fetchBreweriesNames() {
         List<String> breweries = new ArrayList<>();
-        for (Brewery brewery: breweryService.getAllBreweries()) {
+        for (Brewery brewery: breweryService.getAll()) {
             breweries.add(brewery.getName());
         }
         return breweries;

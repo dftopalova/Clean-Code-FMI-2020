@@ -1,9 +1,7 @@
 package com.telebeer.beertag.controllers.RESTControllers;
 
-
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.services.contracts.BreweryService;
-import com.telebeer.beertag.services.contracts.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +21,12 @@ public class BreweryRestController {
 
     @GetMapping
     public List<Brewery> getAllBreweries() {
-        return service.getAllBreweries();
+        return service.getAll();
     }
 
     @PostMapping
-    public String addBrewery(@RequestBody Brewery brewery) {
-       return service.addBrewery(brewery);
+    public String createBrewery(@RequestBody Brewery brewery) {
+       return service.createBrewery(brewery);
     }
 
     @GetMapping("/{id}")
@@ -38,7 +36,7 @@ public class BreweryRestController {
 
     @GetMapping("/brewery")
     public Brewery getBreweryByName(@RequestParam String name) {
-        return service.getBreweryByName(name);
+        return service.getByName(name);
     }
 
     @DeleteMapping("/{id}")

@@ -21,29 +21,27 @@ public class BeerRestController {
 
     @GetMapping
     public List<Beer> getAll() {
-        return service.getAllBeers();
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
     public Beer getById(@PathVariable int id) {
-        Beer beer = service.getBeerById(id);
-
-        return beer;
+        return service.getById(id);
     }
 
     @GetMapping("/")
     public List<Beer> getByName(@RequestParam String name) {
-        return service.getBeerByName(name);
+        return service.getAllByName(name);
     }
 
     @PostMapping
-    public void addBeer(@Valid @RequestBody Beer beer) { //it must be concrete class so json deserializer can work
+    public void createBeer(@Valid @RequestBody Beer beer) { //it must be concrete class so json deserializer can work
         service.createBeer(beer);
     }
 
     @PutMapping("/{id}")
     public String updateBeer(@PathVariable int id, @Valid @RequestBody Beer beer) {
-      return   service.updateBeer(id, beer);
+        return service.updateBeer(id, beer);
     }
 
     @DeleteMapping("/{id}")

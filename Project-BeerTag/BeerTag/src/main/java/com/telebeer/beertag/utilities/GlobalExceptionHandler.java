@@ -58,7 +58,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> handleExceptionHelper(NoContentException ex, WebRequest request) {
         String bodyOfResponse = generateResponseBody(HttpStatus.NO_CONTENT, ex.getMessage());
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     private ResponseEntity<Object> handleExceptionHelper(CollisionException ex, WebRequest request) {

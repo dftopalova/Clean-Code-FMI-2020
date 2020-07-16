@@ -1,23 +1,29 @@
 package com.telebeer.beertag.services;
 
-import com.telebeer.beertag.models.dtos.*;
 import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;
+import com.telebeer.beertag.utilities.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
     private static final String USER_SUCCESSFULLY_CREATED = "{\"message\": \"User with username - %s is successfully created\"} ";
     private static final String USER_SUCCESSFULLY_UPDATED = "{\"message\": \"User with username - %s is successfully updated\"} ";
-    private static final String USER_WITH_USERNAME_EXISTS = "{\"message\": \"User with the username - %s already exists\"}";
-    private static final String BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE = "This beer does not exist in the list!";
+    private static final String USER_WITH_USERNAME_EXISTS = "{\"message\": \"User with such a username - %s already exists\"}";
+    private static final String BEER_NOT_FOUND = "This beer does not exist in the list!";
+    public static final String USER_WITH_ID_DOES_NOT_EXIST = "User with id %d does not exist";
+    public static final String USERS_WITH_FIRST_NAME_DOES_NOT_EXIST = "Users with first name %s does not exist";
+    public static final String USERS_WITH_LAST_NAME_DOES_NOT_EXIST = "Users with last name %s does not exist";
+    public static final String NO_ENTERED_FILTER_CRITERIA = "There is no entered any filter criteria";
+    public static final String NO_RESULTS_RETURNED = "No results returned";
+    public static final String NO_SUCH_SORTING_CRITERIA = "No such sorting criteria";
 
     private UserRepository repository;
     private BeerRepository beerRepository;
@@ -29,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return repository.getAll();
     }
 
@@ -38,7 +44,7 @@ public class UserServiceImpl implements UserService {
         User result = repository.getById(id);
         if (result == null || !result.isEnabled()) {
             throw new ObjectNotFoundException(
-                    String.format("User with id %d does not exist", id));
+                    String.format(USER_WITH_ID_DOES_NOT_EXIST, id));
         } else {
             return result;
         }
@@ -55,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
         if (result == null || result.isEmpty()) {
             throw new NoContentException(
-                    String.format("Users with first name %s does not exist", firstName));
+                    String.format(USERS_WITH_FIRST_NAME_DOES_NOT_EXIST, firstName));
         } else {
             return result;
         }
@@ -67,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
         if (result == null || result.isEmpty()) {
             throw new NoContentException(
-                    String.format("Users with last name %s does not exist", lastName));
+                    String.format(USERS_WITH_LAST_NAME_DOES_NOT_EXIST, lastName));
         } else {
             return result;
         }
@@ -77,11 +83,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByBothNames(String firstName, String lastName) {
 
-        if (firstName == null && lastName == null) {
+        if (!ValidationHelper.isStringValid(firstName) && !ValidationHelper.isStringValid(lastName)) {
             throw new MalformedRequestException(
-                    "You haven't entered any filter criteria");
+                    NO_ENTERED_FILTER_CRITERIA);
         }
-        List<User> result = new ArrayList<>();
+
+        List<User> result;
         if (firstName == null || firstName.isEmpty() && !lastName.isEmpty()) {
             result = repository.getAllByLastName(lastName);
 
@@ -92,46 +99,43 @@ public class UserServiceImpl implements UserService {
         }
         if (result.isEmpty()) {
             throw new NoContentException(
-                    "Your filter criteria returned no results");
+                    NO_RESULTS_RETURNED);
         } else {
             return result;
         }
     }
 
     @Override
-    public String updateProfileInfo(int id, User user) {
-        User orig = getById(id);
+    public String updateUser(int id, User user) {
+        User userToUpdate = getById(id);
 
         if (!user.getFirstName().isEmpty()) {
-            orig.setFirstName(user.getFirstName());
+            userToUpdate.setFirstName(user.getFirstName());
         }
         if (!user.getLastName().isEmpty()) {
-            orig.setLastName(user.getLastName());
+            userToUpdate.setLastName(user.getLastName());
         }
         if (!user.getUserName().isEmpty()) {
-            orig.setUserName(user.getUserName());
+            userToUpdate.setUserName(user.getUserName());
         }
 
-        repository.updateUser(orig);
+        repository.updateUser(userToUpdate);
         return String.format(USER_SUCCESSFULLY_UPDATED, user.getUserName());
 
     }
 
     @Override
     public void hardDeleteUser(int id) {
-        User temp = getById(id);
-        repository.hardDeleteUser(temp);
+        repository.hardDeleteUser(getById(id));
     }
-
 
     @Override
     public void deleteUser(int id) {
-
         repository.deleteUser(getById(id));
     }
 
     @Override
-    public String addUser(User user) {
+    public String createUser(User user) {
 
         if (userExists(user.getUserName())) {
             throw new CollisionException(String.format(USER_WITH_USERNAME_EXISTS, user.getUserName()));
@@ -144,27 +148,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> sort(String direction, String firstName, String lastName) {
-        List<User> temp;
+        List<User> result;
         if (firstName != null || lastName != null) {
-            temp = getByBothNames(firstName, lastName);
+            result = getByBothNames(firstName, lastName);
         } else {
-            temp = getAllUsers();
+            result = getAll();
         }
 
-        if (direction == null || direction.isEmpty()) {
-            return getAllUsers();
+        if (ValidationHelper.isStringValid(direction)) {
+            return result;
         }
 
-        if (direction.equals("asc")) {
-            Collections.sort(temp);
-            return temp;
-        } else if (direction.equals("desc")) {
-            Collections.sort(temp);
-            Collections.reverse(temp);
-            return temp;
-        } else {
-            throw new MalformedRequestException(
-                    "No such sorting criteria");
+        switch (direction) {
+            case "asc": {
+                Collections.sort(result);
+                return result;
+            }
+            case "desc": {
+                Collections.sort(result);
+                Collections.reverse(result);
+                return result;
+            }
+            default: {
+                throw new MalformedRequestException(NO_SUCH_SORTING_CRITERIA);
+            }
         }
     }
 
@@ -172,27 +179,23 @@ public class UserServiceImpl implements UserService {
     public Set<Beer> getUserWishlist(String username) {
         User user = getByUsername(username);
 
-        Set<Beer> wishlist = user.getBeersWishlist();
-
-        return wishlist;
+        return user.getBeersWishlist();
     }
 
     @Override
-    public Set<Beer> getUserDrankBeers(String username) {
+    public Set<Beer> getUserTestedBeers(String username) {
         User user = getByUsername(username);
 
-        Set<Beer> drankBeers = user.getTestedBeers();
-
-        return drankBeers;
+        return user.getTestedBeers();
     }
 
     @Override
-    public void markBeerAsDranked(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
+    public void markBeerAsTested(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
 
         User user = getByUsername(username);
         Beer beer = beerRepository.getBeerById(beerId);
 
-        if (getUserDrunkBeersMap(username).containsKey(beer.getBeerId())) {
+        if (getUserTestedBeersMap(username).containsKey(beer.getBeerId())) {
             throw new BeerAlreadyMarkedException();
         }
 
@@ -213,7 +216,7 @@ public class UserServiceImpl implements UserService {
             throw new BeerAlreadyMarkedException();
         }
 
-        if (getUserDrunkBeersMap(username).containsKey(beer.getBeerId())) {
+        if (getUserTestedBeersMap(username).containsKey(beer.getBeerId())) {
             throw new BeerExistsInOtherListException();
         }
 
@@ -221,48 +224,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeBeerFromDrankList(String username, int beerId) {
+    public void removeBeerFromTestedList(String username, int beerId) {
         User user = getByUsername(username);
 
-        Beer beer = user.getTestedBeers().stream().filter(beer1 -> beer1.getBeerId() == beerId)
-                .findFirst().orElseThrow(() -> new NoContentException(BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE));
+        Beer beer = user.getTestedBeers()
+                .stream()
+                .filter(beer1 -> beer1.getBeerId() == beerId)
+                .findFirst()
+                .orElseThrow(() -> new NoContentException(BEER_NOT_FOUND));
 
         repository.removeBeerFromTestedList(user, beer);
     }
 
     @Override
-    public void removeBeerFromWishes(String username, int beerId) {
+    public void removeBeerFromWishList(String username, int beerId) {
         User user = getByUsername(username);
 
-        Beer beer = user.getBeersWishlist().stream().filter(beer1 -> beer1.getBeerId() == beerId)
-                .findFirst().orElseThrow(() -> new NoContentException(BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE));
+        Beer beer = user.getBeersWishlist()
+                .stream()
+                .filter(beer1 -> beer1.getBeerId() == beerId)
+                .findFirst()
+                .orElseThrow(() -> new NoContentException(BEER_NOT_FOUND));
 
         repository.removeBeerFromWishes(user, beer);
     }
 
-    @Override
-    public User migrateFromDTOToUserEntity(UserDTO userDTO) throws IOException {
-        User user = new User();
-
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setUserName(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        user.setPicture(userDTO.getPicture());
-
-        return user;
-    }
-
-    private HashMap<Integer, Beer> getUserDrunkBeersMap(String username) {
+    private HashMap<Integer, Beer> getUserTestedBeersMap(String username) {
         User user = getByUsername(username);
 
-        HashMap<Integer, Beer> drunkBeers = new HashMap<>();
+        HashMap<Integer, Beer> testedBeers = new HashMap<>();
 
         for (Beer beer : user.getTestedBeers()) {
-            drunkBeers.put(beer.getBeerId(), beer);
+            testedBeers.put(beer.getBeerId(), beer);
         }
 
-        return drunkBeers;
+        return testedBeers;
     }
 
     private HashMap<Integer, Beer> getUserWishlistMap(String username) {
@@ -278,9 +274,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean userExists(String username) {
-        return getAllUsers().stream()
+        return getAll()
+                .stream()
                 .anyMatch(user -> user.getUserName().equals(username));
-
     }
 
 }

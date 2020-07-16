@@ -12,14 +12,12 @@ import java.util.Map;
 @RequestMapping("/api/countries")
 public class CountryRestController {
 
-
     private CountryService service;
 
     @Autowired
     public CountryRestController(CountryService service) {
         this.service = service;
     }
-
 
     @GetMapping
     public Map<Integer, Country> getAlLCountries() {
@@ -28,12 +26,12 @@ public class CountryRestController {
 
     @GetMapping("/{id}")
     public Country getById(@PathVariable int id) {
-        return service.getCountryById(id);
+        return service.getById(id);
     }
 
     @GetMapping("/name")
     public Country sort(@RequestParam(value = "value") String countryName) {
-        return service.getCountryByName(countryName);
+        return service.getByName(countryName);
     }
 
     @GetMapping("/continent")
@@ -43,7 +41,7 @@ public class CountryRestController {
 
     @GetMapping("/code")
     public Country getCountriesByCountryCode (@RequestParam(value = "value") String code) {
-        return service.getCountryByCode(code);
+        return service.getByCode(code);
     }
 
 }

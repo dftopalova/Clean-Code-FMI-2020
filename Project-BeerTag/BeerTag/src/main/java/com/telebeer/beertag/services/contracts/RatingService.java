@@ -7,7 +7,7 @@ import java.util.Set;
 public interface RatingService {
     void rateBeer(String username, int beerID, double rating);
 
-    Set<Rating> getBeerRatings(int beerId);
+    Set<Rating> getBeerRatings(int beerID);
 
-    int getAvgRatingByBeerId(int beerid);
+    int getAvgRatingByBeerId(int beerID);
 }

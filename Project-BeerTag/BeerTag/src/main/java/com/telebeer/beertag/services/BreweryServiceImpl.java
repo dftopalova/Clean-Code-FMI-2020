@@ -19,7 +19,7 @@ public class BreweryServiceImpl implements BreweryService {
     }
 
     @Override
-    public List<Brewery> getAllBreweries(){
+    public List<Brewery> getAll(){
         return repository.getAll();
     }
 
@@ -29,7 +29,7 @@ public class BreweryServiceImpl implements BreweryService {
     }
 
     @Override
-    public Brewery getBreweryByName(String name){
+    public Brewery getByName(String name){
         return repository.getByName(name);
     }
 
@@ -39,7 +39,7 @@ public class BreweryServiceImpl implements BreweryService {
     }
 
     @Override
-    public String addBrewery(Brewery brewery) {
+    public String createBrewery(Brewery brewery) {
        return repository.createBrewery(brewery);
     }
 }

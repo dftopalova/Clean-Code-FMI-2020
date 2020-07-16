@@ -35,7 +35,7 @@ public class TagServiceImplTest {
 
         when(repository.getAll()).thenReturn(temp);
 
-        Map<String, Tag> result = tagServiceImpl.getAllTags();
+        Map<String, Tag> result = tagServiceImpl.getAll();
         Assert.assertEquals(temp ,result);
     }
 
@@ -44,7 +44,7 @@ public class TagServiceImplTest {
         Tag temp = new Tag();
         when(repository.getById(1)).thenReturn(temp);
 
-        Tag result = tagServiceImpl.getTagById(1);
+        Tag result = tagServiceImpl.getById(1);
         Assert.assertEquals(temp, result);
     }
 
@@ -54,7 +54,7 @@ public class TagServiceImplTest {
         temp.setBody("tag");
          when(repository.getByName(anyString())).thenReturn(temp);
 
-        Tag result = tagServiceImpl.getTagByName("tag");
+        Tag result = tagServiceImpl.getByName("tag");
         Assert.assertEquals(temp, result);
     }
 
@@ -94,7 +94,7 @@ public class TagServiceImplTest {
 
         when(repository.getAll()).thenReturn(temp);
 
-        Map<String, Tag> result = tagServiceImpl.getAllTags();
+        Map<String, Tag> result = tagServiceImpl.getAll();
         Assert.assertEquals(temp.size() ,result.size());
     }
 

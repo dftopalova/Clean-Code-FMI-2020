@@ -18,12 +18,12 @@ public class BeerStyleServiceImpl implements BeerStyleService {
     }
 
     @Override
-    public String addBeerStyle(BeerStyle beerStyle) {
+    public String createBeerStyle(BeerStyle beerStyle) {
         return repository.createBeerStyle(beerStyle);
     }
 
     @Override
-    public List<BeerStyle> getAllBeerStyles() {
+    public List<BeerStyle> getAll() {
         return repository.getAll();
     }
 
@@ -33,7 +33,7 @@ public class BeerStyleServiceImpl implements BeerStyleService {
     }
 
     @Override
-    public BeerStyle getBeerStyleByName(String name) {
+    public BeerStyle getByName(String name) {
         return repository.getByName(name);
     }
 
@@ -41,5 +41,6 @@ public class BeerStyleServiceImpl implements BeerStyleService {
     public void deleteBeerStyle(int id) {
             repository.deleteBeerStyle(id);
         }
+
     }
 

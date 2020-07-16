@@ -204,12 +204,10 @@ $(document).ready(function () {
 
     $("body").on("click", "#drankBtn", function () {
         let beerId = $(this).attr('value');
-        console.log(beerId);
-        console.log(userUrl + `/${username}/markAsDrank?beerId=${beerId}`);
 
         $.ajax({
             type: "PUT",
-            url: userUrl + `/${username}/markAsDrank?beerId=${beerId}`,
+            url: userUrl + `/${username}/markAsTested?beerId=${beerId}`,
             success: () => {
                 swal("Done!", "Cheers! You have added this beer in your list with drank beers!", "success");
             },
@@ -626,7 +624,7 @@ $(document).ready(function () {
     $("body").on("click", "#remove-drankBtn", function () {
         let beerId = $(this).attr('value');
         console.log(beerId);
-        let temp = userUrl + `/${username}/drankBeers?beerId=${beerId}`;
+        let temp = userUrl + `/${username}/testedBeers?beerId=${beerId}`;
 
         swal("Are you sure? This will remove it from your list with tasted beers!", {
             icon: "warning",
