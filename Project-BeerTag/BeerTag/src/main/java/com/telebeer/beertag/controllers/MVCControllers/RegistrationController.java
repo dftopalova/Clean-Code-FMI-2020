@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.telebeer.beertag.utilities.constants.UserConstants.*;
+
 @Controller
 public class RegistrationController {
     private UserDetailsManager userDetailsManager;
@@ -39,21 +41,19 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Username/password can't be empty!");
+            model.addAttribute("error", EMPTY_USERNAME_OR_PASSWORD);
             return "register";
         }
 
-        if(userDetailsManager.userExists(user.getUserName())) {
-            model.addAttribute("error", "User with same username already exists!");
+        if (userDetailsManager.userExists(user.getUserName())) {
+            model.addAttribute("error", USER_WITH_SAME_USERNAME_ALREADY_EXISTS);
             return "register";
         }
-
 
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
         org.springframework.security.core.userdetails.User newUserWithAuthorities =
                 new org.springframework.security.core.userdetails.User(
                         user.getUserName(), passwordEncoder.encode(user.getPassword()), authorities);
-
 
         userDetailsManager.createUser(newUserWithAuthorities);
 

@@ -28,5 +28,7 @@ public class UserConstants {
     public static final String NO_ENTERED_FILTER_CRITERIA = "There is no entered any filter criteria";
     public static final String NO_RESULTS_RETURNED = "No results returned";
     public static final String NO_SUCH_SORTING_CRITERIA = "No such sorting criteria";
+    public static final String EMPTY_USERNAME_OR_PASSWORD = "Username/password can't be empty!";
+    public static final String USER_WITH_SAME_USERNAME_ALREADY_EXISTS = "User with same username already exists!";
 
 }
