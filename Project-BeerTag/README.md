@@ -32,6 +32,7 @@ administer all major information objects in the system, e.g. to create/edit/dele
 other administrators, to edit/delete beers and related data if they decide to.
 
 *REST API*
+
 A REST API is provided.
 The REST API leverages HTTP as a transport protocol and clear text JSON for the request and
 response payloads. It is integrated with Swagger.
