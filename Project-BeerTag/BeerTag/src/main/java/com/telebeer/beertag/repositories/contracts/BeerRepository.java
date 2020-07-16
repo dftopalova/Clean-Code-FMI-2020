@@ -8,7 +8,7 @@ public interface BeerRepository {
 
     List<Beer> getAll();
 
-    Beer getBeerById(int id);
+    Beer getById(int id);
 
     List<Beer> getBeerByName(String name);
 

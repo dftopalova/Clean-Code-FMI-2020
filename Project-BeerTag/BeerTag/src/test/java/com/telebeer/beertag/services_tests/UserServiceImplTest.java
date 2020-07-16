@@ -2,6 +2,7 @@ package com.telebeer.beertag.services_tests;
 
 import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.*;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import org.junit.Assert;
@@ -11,8 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 
@@ -21,6 +25,9 @@ public class UserServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    private BeerRepository beerRepository;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -215,7 +222,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        List<User> result = userService.getByBothNames(null,null);
+        List<User> result = userService.getByBothNames(null, null);
 
     }
 
@@ -229,7 +236,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        List<User> result = userService.getByBothNames("asd","asd");
+        List<User> result = userService.getByBothNames("asd", "asd");
     }
 
     @Test
@@ -261,7 +268,7 @@ public class UserServiceImplTest {
         updUser.setLastName("lname");
         updUser.setUserName("user1");
 
-        userService.updateUser(1,updUser);
+        userService.updateUser(1, updUser);
 
         Mockito.verify(userRepository, Mockito.times(1)).getById(1);
         Assert.assertEquals("fname", updUser.getFirstName());
@@ -304,6 +311,196 @@ public class UserServiceImplTest {
         userService.hardDeleteUser(1);
 
         verify(userRepository).hardDeleteUser(user1);
+    }
+
+    @Test
+    public void markBeerAsTested_ShouldAddBeerToUserTestedList() {
+        User user = new User();
+        user.setId(1);
+        user.setUserName("user");
+        user.setEnabled(true);
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsTested(user, beer);
+
+        verify(userRepository).markBeerAsTested(user, beer);
+    }
+
+    @Test(expected = BeerAlreadyMarkedException.class)
+    public void markBeerAsTested_ShouldThrowException_WhenBeerIsAlreadyInTestedList() {
+        User user = new User();
+        user.setId(1);
+        user.setUserName("user");
+        user.setEnabled(true);
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsTested(user, beer);
+
+        userRepository.markBeerAsTested(user, beer);
+    }
+
+    @Test(expected = BeerExistsInOtherListException.class)
+    public void markBeerAsTested_ShouldThrowException_WhenBeerIsInOtherListWithBeers() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("username");
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsWish(user, beer);
+
+        userRepository.markBeerAsTested(user, beer);
+    }
+
+    @Test
+    public void markBeerAsWish_ShouldAddBeerToUserWishList() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsWish(user, beer);
+
+        verify(userRepository).markBeerAsWish(user, beer);
+    }
+
+    @Test(expected = BeerAlreadyMarkedException.class)
+    public void markBeerAsWish_ShouldThrowException_WheBeerIsAlreadyInTheWishList() {
+        User user = new User();
+        user.setId(1);
+        user.setUserName("user");
+        user.setEnabled(true);
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsWish(user, beer);
+
+        userRepository.markBeerAsWish(user, beer);
+    }
+
+    @Test(expected = BeerExistsInOtherListException.class)
+    public void markBeerAsWish_ShouldThrowException_WhenBeerIsInOtherListWithBeers() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Mockito.when(beerRepository.getById(1)).thenReturn(beer);
+        userRepository.markBeerAsTested(user, beer);
+
+        userRepository.markBeerAsWish(user, beer);
+    }
+
+    @Test
+    public void removeBeerFromTestedBeers_ShouldRemoveTheCorrectBeer() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Set<Beer> beersList = new HashSet<>();
+        beersList.add(beer);
+        user.setTestedBeers(beersList);
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+        userRepository.removeBeerFromTestedList(user, beer);
+
+        verify(userRepository).removeBeerFromTestedList(user, beer);
+    }
+
+    @Test(expected = NoContentException.class)
+    public void removeBeerFromTestedBeers_ShouldThrowException_WhenBeerNotFound() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+        user.setTestedBeers(new HashSet<>());
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+        userService.removeBeerFromTestedList("user", 1);
+    }
+
+    @Test
+    public void removeBeerFromWishList_ShouldRemoveTheCorrectBeer() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+
+        Beer beer = new Beer();
+        beer.setBeerId(1);
+        beer.setName("name");
+
+        Set<Beer> beersList = new HashSet<>();
+        beersList.add(beer);
+        user.setBeersWishlist(beersList);
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+        userRepository.removeBeerFromWishes(user, beer);
+
+        verify(userRepository).removeBeerFromWishes(user, beer);
+    }
+
+    @Test(expected = NoContentException.class)
+    public void removeBeerFromWishList_ShouldThrowException_WhenBeerNotFound() {
+        User user = new User();
+        user.setId(1);
+        user.setEnabled(true);
+        user.setUserName("user");
+        user.setBeersWishlist(new HashSet<>());
+
+        Mockito.when(userService.getById(1)).thenReturn(user);
+        Mockito.when(userService.getByUsername("user")).thenReturn(user);
+        userService.removeBeerFromWishList("user", 1);
     }
 
 }

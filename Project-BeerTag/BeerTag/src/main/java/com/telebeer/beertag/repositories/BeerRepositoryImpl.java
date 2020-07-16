@@ -33,7 +33,7 @@ public class BeerRepositoryImpl implements BeerRepository {
     }
 
     @Override
-    public Beer getBeerById(int id) {
+    public Beer getById(int id) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Beer.class, id);
         }
@@ -59,7 +59,7 @@ public class BeerRepositoryImpl implements BeerRepository {
     @Override
     public void removeBeer(int id) {
         try (Session session = sessionFactory.openSession()) {
-            Beer beerToDelete = getBeerById(id);
+            Beer beerToDelete = getById(id);
             try {
                 session.beginTransaction();
                 beerToDelete.setDeleted(true);

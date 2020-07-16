@@ -92,7 +92,7 @@ public class BeerServiceImplTest {
     @Test
     public void getBeerById_ShouldReturnCorrectBeer() {
         //Arrange
-        when(mockRepository.getBeerById(1))
+        when(mockRepository.getById(1))
                 .thenReturn(new Beer());
 
         //Act
@@ -156,7 +156,7 @@ public class BeerServiceImplTest {
         newBeer.setABV(9);
         newBeer.setDescription("new beer");
 
-        when(mockRepository.getBeerById(0))
+        when(mockRepository.getById(0))
                 .thenReturn(beer);
 
         // Act

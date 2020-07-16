@@ -45,7 +45,7 @@ public class RatingServiceImplTest {
         rating.setBeer(beer);
 
         when(userRepository.getByUsername("username")).thenReturn(user);
-        when(beerRepository.getBeerById(0)).thenReturn(beer);
+        when(beerRepository.getById(0)).thenReturn(beer);
 
         ratingServiceImpl.rateBeer("username", 0, 0d);
     }
@@ -63,7 +63,7 @@ public class RatingServiceImplTest {
         rating.setRating(5);
         rating.setBeer(beer);
 
-        when(beerRepository.getBeerById(0)).thenReturn(beer);
+        when(beerRepository.getById(0)).thenReturn(beer);
         Set<Rating> expected = new HashSet<>();
         expected.add(rating);
         beer.setRatings(expected);
@@ -73,7 +73,7 @@ public class RatingServiceImplTest {
 
     @Test
     public void testGetAvgRatingByBeerId() {
-        when(beerRepository.getBeerById(anyInt())).thenReturn(new Beer());
+        when(beerRepository.getById(anyInt())).thenReturn(new Beer());
 
         int result = ratingServiceImpl.getAvgRatingByBeerId(0);
         Assert.assertEquals(0, result);

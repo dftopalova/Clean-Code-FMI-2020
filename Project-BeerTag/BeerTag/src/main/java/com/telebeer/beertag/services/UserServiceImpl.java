@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
     public void markBeerAsTested(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
 
         User user = getByUsername(username);
-        Beer beer = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getById(beerId);
 
         if (getUserTestedBeersMap(username).containsKey(beer.getBeerId())) {
             throw new BeerAlreadyMarkedException();
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService {
     public void markBeerAsWish(String username, int beerId) throws BeerAlreadyMarkedException, BeerExistsInOtherListException {
 
         User user = getByUsername(username);
-        Beer beer = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getById(beerId);
 
         if (getUserWishlistMap(username).containsKey(beer.getBeerId())) {
             throw new BeerAlreadyMarkedException();

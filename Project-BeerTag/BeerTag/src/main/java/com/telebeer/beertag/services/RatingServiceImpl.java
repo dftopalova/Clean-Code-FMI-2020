@@ -31,7 +31,7 @@ public class RatingServiceImpl implements RatingService {
     public void rateBeer(String username, int beerID, double rating) {
 
         User user = userRepository.getByUsername(username);
-        Beer beer = beerRepository.getBeerById(beerID);
+        Beer beer = beerRepository.getById(beerID);
 
         RatingId ratingId = new RatingId();
         ratingId.setUserId(user.getId());
@@ -48,14 +48,14 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Set<Rating> getBeerRatings(int beerId) {
-        Beer beer = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getById(beerId);
 
         return beer.getRatings();
     }
 
     @Override
     public int getAvgRatingByBeerId(int beerId) {
-        Beer beer = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getById(beerId);
 
         return (int) beer.getAverageRating();
     }

@@ -1,6 +1,5 @@
 package com.telebeer.beertag.services;
 
-import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.models.dtos.BeerDTO;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
@@ -44,7 +43,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public Beer getById(int id) {
-        return repository.getBeerById(id);
+        return repository.getById(id);
     }
 
     @Override

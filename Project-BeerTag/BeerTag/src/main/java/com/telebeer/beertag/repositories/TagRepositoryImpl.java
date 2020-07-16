@@ -4,7 +4,6 @@ import com.telebeer.beertag.models.entities.Beer;
 import com.telebeer.beertag.models.entities.Tag;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
-import com.telebeer.beertag.exceptions.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -73,7 +72,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Set<Tag> getBeerTags(int beerId) {
-        Beer beer = beerRepository.getBeerById(beerId);
+        Beer beer = beerRepository.getById(beerId);
         Set<Tag> tags = beer.getTags()
                 .stream()
                 .filter(tag -> !tag.isDeleted())
@@ -99,7 +98,7 @@ public class TagRepositoryImpl implements TagRepository {
                     createTag(tag);
                 }
 
-                Beer beer = beerRepository.getBeerById(beerId);
+                Beer beer = beerRepository.getById(beerId);
 
                 Tag tagToAdd = getByName(tag.getBody().toLowerCase().trim());
                 beer.getTags().add(tagToAdd);
@@ -123,7 +122,7 @@ public class TagRepositoryImpl implements TagRepository {
             try {
                 session.beginTransaction();
 
-                Beer beer = beerRepository.getBeerById(beerId);
+                Beer beer = beerRepository.getById(beerId);
 
                 Tag tagToRemove = beer.getTags().stream().filter(tag -> tag.getId() == tagId).findFirst()
                         .orElseThrow(() -> new NoContentException(TAG_NOT_FOUND_MESSAGE));
