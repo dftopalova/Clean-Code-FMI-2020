@@ -18,7 +18,7 @@ public class User implements Comparable<User> {
     @PositiveOrZero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private int id;
 
     @Size(min = 3, max = 20, message = "First name must be between 3 and 20 symbols.")
@@ -46,19 +46,20 @@ public class User implements Comparable<User> {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "users_drunkBeers",
-            joinColumns = @JoinColumn(name = "user_id"),
+            name = "users_testedBeers",
+            joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "beer_id")
     )
     @JsonIgnore
-    private Set<Beer> drunkBeers = new HashSet<>();
+    private Set<Beer> testedBeers = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_wishlist",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "beer_id")
     )
+
     @JsonIgnore
     private Set<Beer> beersWishlist = new HashSet<>();
 
@@ -129,12 +130,12 @@ public class User implements Comparable<User> {
         this.picture = newPicture;
     }
 
-    public Set<Beer> getDrunkBeers() {
-        return drunkBeers;
+    public Set<Beer> getTestedBeers() {
+        return testedBeers;
     }
 
-    public void setDrunkBeers(Set<Beer> drunkBeers) {
-        this.drunkBeers = drunkBeers;
+    public void setTestedBeers(Set<Beer> drunkBeers) {
+        this.testedBeers = drunkBeers;
     }
 
     public Set<Beer> getBeersWishlist() {
@@ -155,6 +156,5 @@ public class User implements Comparable<User> {
         }
         return result;
     }
-
 
 }

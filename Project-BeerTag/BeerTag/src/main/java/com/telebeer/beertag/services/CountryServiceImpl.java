@@ -18,7 +18,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Map<Integer, Country> getAll() {
-        return countryRepository.getAllCountries();
+        return countryRepository.getAll();
     }
 
     @Override
@@ -28,17 +28,17 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country getCountryByName(String name) {
-        return countryRepository.getCountryByName(name);
+        return countryRepository.getByName(name);
     }
 
     @Override
     public Country getCountryByCode(String countryCode) {
-        return countryRepository.getCountryByCode(countryCode);
+        return countryRepository.getByCode(countryCode);
     }
 
     @Override
     public Map<Integer, Country> getCountriesByContinentName(String continentName) {
-        return countryRepository.getCountriesByContinent(continentName);
+        return countryRepository.getAllByContinentCode(continentName);
     }
 
 }

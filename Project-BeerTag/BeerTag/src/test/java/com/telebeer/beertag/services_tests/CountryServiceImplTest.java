@@ -10,9 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -36,7 +34,7 @@ public class CountryServiceImplTest {
         Country country2 = new Country();
         country2.setDeleted(false);
 
-        when(countryRepository.getAllCountries()).thenReturn(result);
+        when(countryRepository.getAll()).thenReturn(result);
 
         Map<Integer, Country> expected = countryServiceImpl.getAll();
         Assert.assertEquals(expected, result);
@@ -64,7 +62,7 @@ public class CountryServiceImplTest {
         country2.setDeleted(false);
         country2.setName("country2");
 
-        when(countryRepository.getCountryByName("country1")).thenReturn(country1);
+        when(countryRepository.getByName("country1")).thenReturn(country1);
 
         Country result = countryServiceImpl.getCountryByName("country1");
         Assert.assertEquals(country1, result);
@@ -77,7 +75,7 @@ public class CountryServiceImplTest {
         country1.setName("country1");
         country1.setCode("EU");
 
-        when(countryRepository.getCountryByCode("EU")).thenReturn(country1);
+        when(countryRepository.getByCode("EU")).thenReturn(country1);
 
         Country result = countryServiceImpl.getCountryByCode("EU");
         Assert.assertEquals(country1, result);
@@ -98,7 +96,7 @@ public class CountryServiceImplTest {
         expected.put(1, country1);
         expected.put(2, country2);
 
-        when(countryRepository.getCountriesByContinent("EU")).thenReturn(expected);
+        when(countryRepository.getAllByContinentCode("EU")).thenReturn(expected);
 
         Map<Integer, Country> result = countryServiceImpl.getCountriesByContinentName("EU");
         Assert.assertEquals(expected, result);

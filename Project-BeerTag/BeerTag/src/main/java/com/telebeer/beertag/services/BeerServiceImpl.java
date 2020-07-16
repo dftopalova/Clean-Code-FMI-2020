@@ -40,7 +40,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public List<Beer> getAllBeers() {
-        return repository.getAllBeers();
+        return repository.getAll();
     }
 
     @Override
@@ -56,9 +56,9 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void createBeer(Beer beer) {
 
-        if (beerExists(beer.getBeerName(), beer.getStyle().getName())) {
+        if (beerExists(beer.getName(), beer.getStyle().getName())) {
             throw new CollisionException(String.format(BEER_WITH_SAME_NAME_AND_STYLE_EXISTS
-                    , beer.getBeerName(), beer.getStyle().getName()));
+                    , beer.getName(), beer.getStyle().getName()));
         }
 
         if (beer.getABV() < 0 && beer.getABV() > 60) {
@@ -72,8 +72,8 @@ public class BeerServiceImpl implements BeerService {
     public String updateBeer(int id, Beer beer) {
         Beer beerToEdit = getBeerById(id);
 
-        if (beer.getBeerName() != null && !beer.getBeerName().isEmpty()) {
-            beerToEdit.setBeerName(beer.getBeerName());
+        if (beer.getName() != null && !beer.getName().isEmpty()) {
+            beerToEdit.setName(beer.getName());
         }
         if (beer.getABV() < 0 && beer.getABV() > 60) {
             throw new MalformedRequestException(ALCOHOL_BY_VOLUME_INVALID_MESSAGE);
@@ -168,13 +168,13 @@ public class BeerServiceImpl implements BeerService {
         switch (nameCriteria) {
             case "asc":
                 result = result.stream()
-                        .sorted(Comparator.comparing(Beer::getBeerName))
+                        .sorted(Comparator.comparing(Beer::getName))
                         .collect(Collectors.toList());
                 break;
 
             case "desc":
                 result = result.stream()
-                        .sorted(Comparator.comparing(Beer::getBeerName).reversed())
+                        .sorted(Comparator.comparing(Beer::getName).reversed())
                         .collect(Collectors.toList());
                 break;
             default:
@@ -237,7 +237,7 @@ public class BeerServiceImpl implements BeerService {
     public Beer migrateFromDTOToEntity(BeerDTO beerDTO, Principal principal) throws IOException {
         Beer beer = new Beer();
 
-        beer.setBeerName(beerDTO.getBeerName());
+        beer.setName(beerDTO.getName());
 
         beer.setABV(beerDTO.getABV());
 
@@ -255,14 +255,14 @@ public class BeerServiceImpl implements BeerService {
         Country country = countryService.getCountryByName(beerDTO.getOriginCountry());
         beer.setOriginCountry(country);
 
-        beer.setBeerPicture(beerDTO.getBeerPicture());
+        beer.setBeerPicture(beerDTO.getPicture());
 
         return beer;
     }
 
     private boolean beerExists(String beerName, String beerStyle) {
         return getAllBeers().stream()
-                .anyMatch(beer -> beer.getBeerName().equalsIgnoreCase(beerName)
+                .anyMatch(beer -> beer.getName().equalsIgnoreCase(beerName)
                         && beer.getStyle().getName().equalsIgnoreCase(beerStyle));
     }
 

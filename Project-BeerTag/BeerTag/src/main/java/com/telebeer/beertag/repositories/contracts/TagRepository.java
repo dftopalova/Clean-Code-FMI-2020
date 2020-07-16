@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 public interface TagRepository {
-    Map<String, Tag> getAllTags();
+    Map<String, Tag> getAll();
 
-    Tag getTagById(int id);
+    Tag getById(int id);
 
-    Tag getTagByName(String tag);
+    Tag getByName(String tag);
 
     Set<Beer> getBeersByTag(String tag);
 
@@ -23,6 +23,5 @@ public interface TagRepository {
     void removeTagFromBeer(int tagId, int beerId);
 
     void deleteTag(int tagId);
-
 
 }

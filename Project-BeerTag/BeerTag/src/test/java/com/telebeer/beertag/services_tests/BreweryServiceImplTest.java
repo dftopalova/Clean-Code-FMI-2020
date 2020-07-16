@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -33,7 +32,7 @@ public class BreweryServiceImplTest {
         Brewery brew2 = new Brewery();
         List<Brewery> expected = new ArrayList<>();
 
-        when(repository.getAllBreweries()).thenReturn(expected);
+        when(repository.getAll()).thenReturn(expected);
 
         List<Brewery> result = breweryServiceImpl.getAllBreweries();
         Assert.assertEquals(expected, result);
@@ -54,7 +53,7 @@ public class BreweryServiceImplTest {
         Brewery brew1 = new Brewery();
         brew1.setName("brew1");
 
-        when(repository.getBreweryByName("brew1")).thenReturn(brew1);
+        when(repository.getByName("brew1")).thenReturn(brew1);
 
         Brewery result = breweryServiceImpl.getBreweryByName("brew1");
         Assert.assertEquals(brew1, result);
@@ -68,7 +67,7 @@ public class BreweryServiceImplTest {
     @Test
     public void testAddBrewery() {
         String exp = "{\"message\": \"Brewery- %s successfully created\"}";
-        when(repository.addBrewery(any())).thenReturn(exp);
+        when(repository.createBrewery(any())).thenReturn(exp);
 
         String result = breweryServiceImpl.addBrewery(new Brewery());
         Assert.assertEquals(exp, result);

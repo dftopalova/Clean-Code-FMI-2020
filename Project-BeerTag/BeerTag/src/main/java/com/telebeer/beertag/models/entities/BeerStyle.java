@@ -10,7 +10,7 @@ public class BeerStyle {
     @PositiveOrZero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "style_id")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")

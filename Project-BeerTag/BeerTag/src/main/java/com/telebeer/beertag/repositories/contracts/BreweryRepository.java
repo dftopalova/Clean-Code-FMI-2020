@@ -5,13 +5,15 @@ import com.telebeer.beertag.models.entities.*;
 import java.util.List;
 
 public interface BreweryRepository {
-    List<Brewery> getAllBreweries();
 
-    String addBrewery(Brewery brewery);
+    List<Brewery> getAll();
 
     Brewery getById(int id);
 
-    Brewery getBreweryByName(String name);
+    Brewery getByName(String name);
+
+    String createBrewery(Brewery brewery);
 
     void deleteBrewery(int id);
+
 }

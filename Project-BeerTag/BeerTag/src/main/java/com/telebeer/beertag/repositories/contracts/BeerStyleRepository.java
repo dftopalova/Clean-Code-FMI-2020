@@ -5,14 +5,15 @@ import com.telebeer.beertag.models.entities.*;
 import java.util.List;
 
 public interface BeerStyleRepository {
-    String addBeerStyle(BeerStyle beerStyle);
 
-        List<BeerStyle> getAllBeerStyles();
+    List<BeerStyle> getAll();
 
-    BeerStyle  getById(int id);
+    BeerStyle getById(int id);
 
-    BeerStyle getBeerStyleByName(String name);
+    BeerStyle getByName(String name);
 
-     void deleteBeerStyle(int id);
+    String createBeerStyle(BeerStyle beerStyle);
 
-    }
+    void deleteBeerStyle(int id);
+
+}

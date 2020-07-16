@@ -3,7 +3,6 @@ package com.telebeer.beertag.services;
 import com.telebeer.beertag.models.entities.Brewery;
 import com.telebeer.beertag.repositories.contracts.BreweryRepository;
 import com.telebeer.beertag.services.contracts.BreweryService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ public class BreweryServiceImpl implements BreweryService {
 
     @Override
     public List<Brewery> getAllBreweries(){
-        return repository.getAllBreweries();
+        return repository.getAll();
     }
 
     @Override
@@ -31,7 +30,7 @@ public class BreweryServiceImpl implements BreweryService {
 
     @Override
     public Brewery getBreweryByName(String name){
-        return repository.getBreweryByName(name);
+        return repository.getByName(name);
     }
 
     @Override
@@ -41,6 +40,6 @@ public class BreweryServiceImpl implements BreweryService {
 
     @Override
     public String addBrewery(Brewery brewery) {
-       return repository.addBrewery(brewery);
+       return repository.createBrewery(brewery);
     }
 }

@@ -4,6 +4,7 @@ import com.telebeer.beertag.models.entities.Beer;
 import com.telebeer.beertag.models.entities.Tag;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
+import com.telebeer.beertag.exceptions.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import com.telebeer.beertag.exceptions.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,11 +20,10 @@ import java.util.stream.Collectors;
 public class TagRepositoryImpl implements TagRepository {
 
     private static final String TAG_NOT_FOUND_MESSAGE = "Tag not found";
-    private static final String TAG_SUCCESSFULLY_ADDED =
-            "{\"message\": \"Tag- %s successfully added\"}";
+    private static final String TAG_SUCCESSFULLY_CREATED =
+            "{\"message\": \"Tag- %s successfully created\"}";
     private static final String TAG_FAIL_ADDED =
             "{\"message\": \"Tag- %s adding failed\"}";
-
 
     private SessionFactory sessionFactory;
     private BeerRepository beerRepository;
@@ -36,7 +35,7 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Map<String, Tag> getAllTags() {
+    public Map<String, Tag> getAll() {
         Map<String, Tag> tags = new HashMap<String, Tag>();
         try (Session session = sessionFactory.openSession()) {
             Query<Tag> query = session
@@ -44,7 +43,7 @@ public class TagRepositoryImpl implements TagRepository {
             List<Tag> tagsList = query.list();
 
             for (Tag tag : tagsList) {
-                tags.put(tag.getTagBody().toLowerCase().trim(), tag);
+                tags.put(tag.getBody().toLowerCase().trim(), tag);
             }
 
             return tags;
@@ -52,14 +51,14 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Tag getTagById(int id) {
+    public Tag getById(int id) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Tag.class, id);
         }
     }
 
     @Override
-    public Tag getTagByName(String tag) {
+    public Tag getByName(String tag) {
         try (Session session = sessionFactory.openSession()) {
             Query<Tag> query = session
                     .createQuery("from Tag where tag_body = :tag and " +
@@ -71,7 +70,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Set<Beer> getBeersByTag(String tagName) {
-        Tag tag = getTagByName(tagName);
+        Tag tag = getByName(tagName);
 
         return tag.getBeers();
     }
@@ -83,6 +82,7 @@ public class TagRepositoryImpl implements TagRepository {
                 .stream()
                 .filter(tag -> !tag.isDeleted())
                 .collect(Collectors.toSet());
+
         return tags;
     }
 
@@ -99,13 +99,13 @@ public class TagRepositoryImpl implements TagRepository {
 
             try {
                 session.beginTransaction();
-                if (!getAllTags().containsKey(tag.getTagBody())) {
+                if (!getAll().containsKey(tag.getBody())) {
                     createTag(tag);
                 }
 
                 Beer beer = beerRepository.getBeerById(beerId);
 
-                Tag tagToAdd = getTagByName(tag.getTagBody().toLowerCase().trim());
+                Tag tagToAdd = getByName(tag.getBody().toLowerCase().trim());
                 beer.getTags().add(tagToAdd);
                 tagToAdd.getBeers().add(beer);
 
@@ -117,7 +117,7 @@ public class TagRepositoryImpl implements TagRepository {
             }
         }
         return String.format(
-                TAG_SUCCESSFULLY_ADDED, tag.getTagBody()
+                TAG_SUCCESSFULLY_CREATED, tag.getBody()
         );
     }
 
@@ -129,7 +129,7 @@ public class TagRepositoryImpl implements TagRepository {
 
                 Beer beer = beerRepository.getBeerById(beerId);
 
-                Tag tagToRemove = beer.getTags().stream().filter(tag -> tag.getTagId() == tagId).findFirst()
+                Tag tagToRemove = beer.getTags().stream().filter(tag -> tag.getId() == tagId).findFirst()
                         .orElseThrow(() -> new NoContentException(TAG_NOT_FOUND_MESSAGE));
 
                 beer.getTags().remove(tagToRemove);
@@ -151,7 +151,7 @@ public class TagRepositoryImpl implements TagRepository {
             try {
                 session.beginTransaction();
 
-                Tag tempTag = getTagById(tagId);
+                Tag tempTag = getById(tagId);
                 tempTag.setDeleted(true);
 
                 session.update(tempTag);

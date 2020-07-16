@@ -6,13 +6,13 @@ import java.util.Map;
 
 public interface CountryRepository {
 
-    Map<Integer, Country> getAllCountries();
+    Map<Integer, Country> getAll();
 
-    Map<Integer, Country> getCountriesByContinent(String continentCode);
+    Map<Integer, Country> getAllByContinentCode(String continentCode);
 
     Country getById(int id);
 
-    Country getCountryByName(String name);
+    Country getByName(String name);
 
-    Country getCountryByCode(String code);
+    Country getByCode(String code);
 }

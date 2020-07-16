@@ -25,7 +25,7 @@ public class BreweryRepositoryImpl implements BreweryRepository {
     }
 
     @Override
-    public List<Brewery> getAllBreweries() {
+    public List<Brewery> getAll() {
         try (Session session = sessionFactory.openSession()) {
             Query<Brewery> query = session
                     .createQuery("from Brewery where isDeleted = false", Brewery.class);
@@ -34,7 +34,7 @@ public class BreweryRepositoryImpl implements BreweryRepository {
     }
 
     @Override
-    public String addBrewery(Brewery brewery) {
+    public String createBrewery(Brewery brewery) {
         try (Session session = sessionFactory.openSession()) {
             session.save(brewery);
         }
@@ -49,7 +49,7 @@ public class BreweryRepositoryImpl implements BreweryRepository {
     }
 
     @Override
-    public Brewery getBreweryByName(String name) {
+    public Brewery getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
             Query<Brewery> query = session
                     .createQuery("from Brewery where isDeleted = false and name = :name",

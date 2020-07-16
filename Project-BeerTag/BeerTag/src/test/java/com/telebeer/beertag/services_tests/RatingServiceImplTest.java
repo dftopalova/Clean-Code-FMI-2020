@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,7 +38,7 @@ public class RatingServiceImplTest {
         user.setUserName("username");
         Beer beer = new Beer();
         beer.setBeerId(0);
-        beer.setBeerName("name");
+        beer.setName("name");
 
         Rating rating = new Rating();
         rating.setRating(5);
@@ -57,7 +56,7 @@ public class RatingServiceImplTest {
         user.setUserName("username");
         Beer beer = new Beer();
         beer.setBeerId(0);
-        beer.setBeerName("name");
+        beer.setName("name");
 
 
         Rating rating = new Rating();

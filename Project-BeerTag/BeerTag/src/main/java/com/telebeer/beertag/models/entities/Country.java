@@ -8,8 +8,8 @@ public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id")
-    private int country_id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "code")
     private String code;
@@ -26,12 +26,12 @@ public class Country {
     public Country() {
     }
 
-    public int getCountry_id() {
-        return country_id;
+    public int getId() {
+        return id;
     }
 
-    public void setCountry_id(int country_id) {
-        this.country_id = country_id;
+    public void setId(int country_id) {
+        this.id = country_id;
     }
 
     public String getName() {

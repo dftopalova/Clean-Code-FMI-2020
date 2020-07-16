@@ -8,7 +8,7 @@ public class Brewery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "brewery_id")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")

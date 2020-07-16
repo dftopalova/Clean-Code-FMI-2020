@@ -52,7 +52,7 @@ public class UserServiceImplTest {
         expected.add(user1);
         expected.add(user2);
         expected.add(user3);
-        Mockito.when(userRepository.getAllUsers())
+        Mockito.when(userRepository.getAll())
                 .thenReturn(expected);
 
         List<User> result = userService.getAllUsers();
@@ -99,7 +99,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByFirstName("user1"))
+        Mockito.when(userRepository.getAllByFirstName("user1"))
                 .thenReturn(expected);
 
         List<User> result = userService.getByFirstName("user1");
@@ -115,7 +115,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByFirstName("user1"))
+        Mockito.when(userRepository.getAllByFirstName("user1"))
                 .thenReturn(null);
 
         List<User> result = userService.getByFirstName("user1");
@@ -131,7 +131,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByLastName("user1"))
+        Mockito.when(userRepository.getAllByLastName("user1"))
                 .thenReturn(expected);
 
         List<User> result = userService.getByLastName("user1");
@@ -147,7 +147,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByLastName("user1"))
+        Mockito.when(userRepository.getAllByLastName("user1"))
                 .thenReturn(null);
 
         List<User> result = userService.getByLastName("user1");
@@ -164,7 +164,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByBothNames("fname", "lname"))
+        Mockito.when(userRepository.getAllByFullName("fname", "lname"))
                 .thenReturn(expected);
 
         List<User> result = userService.getByBothNames("fname", "lname");
@@ -181,7 +181,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByFirstName("fname"))
+        Mockito.when(userRepository.getAllByFirstName("fname"))
                 .thenReturn(expected);
 
         List<User> result = userService.getByBothNames("fname", "");
@@ -198,7 +198,7 @@ public class UserServiceImplTest {
         List<User> expected = new ArrayList<>();
         expected.add(user1);
 
-        Mockito.when(userRepository.getByLastName("lname"))
+        Mockito.when(userRepository.getAllByLastName("lname"))
                 .thenReturn(expected);
 
         List<User> result = userService.getByBothNames("", "lname");
@@ -277,7 +277,7 @@ public class UserServiceImplTest {
 
         userService.addUser(user1);
 
-        verify(userRepository).addUser(user1);
+        verify(userRepository).createUser(user1);
     }
 
     @Test(expected = CollisionException.class)
@@ -288,7 +288,7 @@ public class UserServiceImplTest {
         List<User> res = new ArrayList<>();
         res.add(user1);
 
-        Mockito.when(userRepository.getAllUsers()).thenReturn(res);
+        Mockito.when(userRepository.getAll()).thenReturn(res);
 
         userService.addUser(user1);
 

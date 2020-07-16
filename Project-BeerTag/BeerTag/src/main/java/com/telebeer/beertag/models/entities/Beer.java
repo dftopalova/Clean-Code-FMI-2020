@@ -22,9 +22,9 @@ public class Beer implements Comparable<Beer> {
     @Column(name = "id")
     private int id;
 
-    @Size(min = 3, max = 15, message = "Beer name must be between 3 and 15 symbols!")
+    @Size(min = 3, max = 15, message = "Beer name must be between 3 and 15 symbols!") // TODO
     @Column(name = "name")
-    private String beerName;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
@@ -52,7 +52,7 @@ public class Beer implements Comparable<Beer> {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "beer_tags",
-            joinColumns = @JoinColumn(name = "beer_id"),
+            joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     @JsonIgnore
@@ -86,12 +86,12 @@ public class Beer implements Comparable<Beer> {
         this.id = beerId;
     }
 
-    public String getBeerName() {
-        return beerName;
+    public String getName() {
+        return name;
     }
 
-    public void setBeerName(String beerName) {
-        this.beerName = beerName;
+    public void setName(String beerName) {
+        this.name = beerName;
     }
 
     public User getCreator() {
@@ -203,7 +203,7 @@ public class Beer implements Comparable<Beer> {
             result = Double.compare(this.getAverageRating(), o.getAverageRating());
         }
         if (result == 0) {
-            result = this.getBeerName().compareTo(o.getBeerName());
+            result = this.getName().compareTo(o.getName());
         }
 
         return result;

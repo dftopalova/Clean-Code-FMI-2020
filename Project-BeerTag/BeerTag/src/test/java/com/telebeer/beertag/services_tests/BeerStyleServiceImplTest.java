@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -31,7 +30,7 @@ public class BeerStyleServiceImplTest {
     public void testAddBeerStyle() {
         String exp = "{\"message\": \"Beer style- %s successfully added\"}";
 
-        when(repository.addBeerStyle(any())).thenReturn(exp);
+        when(repository.createBeerStyle(any())).thenReturn(exp);
 
         String result = beerStyleServiceImpl.addBeerStyle(new BeerStyle());
         Assert.assertEquals(exp, result);
@@ -45,7 +44,7 @@ public class BeerStyleServiceImplTest {
         exp.add(style1);
         exp.add(style2);
 
-        when(repository.getAllBeerStyles()).thenReturn(exp);
+        when(repository.getAll()).thenReturn(exp);
 
         List<BeerStyle> result = beerStyleServiceImpl.getAllBeerStyles();
         Assert.assertEquals(exp, result);
@@ -66,7 +65,7 @@ public class BeerStyleServiceImplTest {
         BeerStyle style1 = new BeerStyle();
         style1.setName("style1");
 
-        when(repository.getBeerStyleByName("style1")).thenReturn(style1 );
+        when(repository.getByName("style1")).thenReturn(style1 );
 
         BeerStyle result = beerStyleServiceImpl.getBeerStyleByName("style1");
         Assert.assertEquals(style1, result);

@@ -33,7 +33,7 @@ public class TagServiceImplTest {
         Map<String, Tag> temp = new HashMap<>();
         temp.put("tag", new Tag());
 
-        when(repository.getAllTags()).thenReturn(temp);
+        when(repository.getAll()).thenReturn(temp);
 
         Map<String, Tag> result = tagServiceImpl.getAllTags();
         Assert.assertEquals(temp ,result);
@@ -42,7 +42,7 @@ public class TagServiceImplTest {
     @Test
     public void testGetTagById() {
         Tag temp = new Tag();
-        when(repository.getTagById(1)).thenReturn(temp);
+        when(repository.getById(1)).thenReturn(temp);
 
         Tag result = tagServiceImpl.getTagById(1);
         Assert.assertEquals(temp, result);
@@ -51,8 +51,8 @@ public class TagServiceImplTest {
     @Test
     public void testGetTagByName() {
         Tag temp = new Tag();
-        temp.setTagBody("tag");
-         when(repository.getTagByName(anyString())).thenReturn(temp);
+        temp.setBody("tag");
+         when(repository.getByName(anyString())).thenReturn(temp);
 
         Tag result = tagServiceImpl.getTagByName("tag");
         Assert.assertEquals(temp, result);
@@ -61,7 +61,7 @@ public class TagServiceImplTest {
     @Test
     public void testGetBeersByTag() {
         Tag temp = new Tag();
-        temp.setTagBody("tag");
+        temp.setBody("tag");
         Beer beer = new Beer();
         Set<Beer> tempSet = new HashSet<>();
         tempSet.add(beer);
@@ -76,7 +76,7 @@ public class TagServiceImplTest {
     public void testGetBeerTags() {
         Beer beer = new Beer();
         Tag temp = new Tag();
-        temp.setTagBody("tag");
+        temp.setBody("tag");
         Set<Tag> tempSet = new HashSet<>();
         tempSet.add(temp);
 
@@ -92,7 +92,7 @@ public class TagServiceImplTest {
         Map<String, Tag> temp = new HashMap<>();
         temp.put("tag", new Tag());
 
-        when(repository.getAllTags()).thenReturn(temp);
+        when(repository.getAll()).thenReturn(temp);
 
         Map<String, Tag> result = tagServiceImpl.getAllTags();
         Assert.assertEquals(temp.size() ,result.size());
@@ -102,7 +102,7 @@ public class TagServiceImplTest {
     public void testAddTagToBeer() {
         Beer beer = new Beer();
         Tag temp = new Tag();
-        temp.setTagBody("tag");
+        temp.setBody("tag");
         Set<Tag> tempSet = new HashSet<>();
         tempSet.add(temp);
 
@@ -117,7 +117,7 @@ public class TagServiceImplTest {
     public void testRemoveTagFromBeer() {
         Beer beer = new Beer();
         Tag temp = new Tag();
-        temp.setTagBody("tag");
+        temp.setBody("tag");
         Set<Tag> tempSet = new HashSet<>();
         tempSet.add(temp);
 

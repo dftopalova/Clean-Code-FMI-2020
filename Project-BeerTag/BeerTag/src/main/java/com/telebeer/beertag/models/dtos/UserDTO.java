@@ -3,6 +3,7 @@ package com.telebeer.beertag.models.dtos;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserDTO {
+
     private String firstName;
     private String lastName;
     private String username;

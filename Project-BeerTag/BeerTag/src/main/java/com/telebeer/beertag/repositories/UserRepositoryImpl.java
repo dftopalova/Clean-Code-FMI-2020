@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<User> query = currentSession.createQuery("from User where enabled = true ", User.class);
             return query.list();
@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getByFirstName(String firstName) {
+    public List<User> getAllByFirstName(String firstName) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<User> query = currentSession.createQuery(
                     "from User where firstName = :firstName " +
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getByLastName(String lastName) {
+    public List<User> getAllByLastName(String lastName) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<User> query = currentSession.createQuery(
                     "from User where lastName = :lastName " +
@@ -70,7 +70,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getByBothNames(String firstName, String lastName) {
+    public List<User> getAllByFullName(String firstName, String lastName) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<User> query = currentSession.createQuery(
                     "from User where lastName = :lastName " +
@@ -110,9 +110,8 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-
     @Override
-    public void addUser(User user) {
+    public void createUser(User user) {
         try (Session currentSession = sessionFactory.openSession()) {
             currentSession.saveOrUpdate(user);
         }
@@ -131,14 +130,13 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-
     @Override
-    public void markBeerAsDranked(User user, Beer beer) {
+    public void markBeerAsTested(User user, Beer beer) {
         try (Session session = sessionFactory.openSession()) {
             try {
                 session.beginTransaction();
 
-                user.getDrunkBeers().add(beer);
+                user.getTestedBeers().add(beer);
 
                 session.update(user);
                 session.getTransaction().commit();
@@ -165,12 +163,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void removeBeerfromDrankList(User user, Beer beer) {
+    public void removeBeerFromTestedList(User user, Beer beer) {
         try (Session session = sessionFactory.openSession()) {
             try {
                 session.beginTransaction();
 
-                user.getDrunkBeers().remove(beer);
+                user.getTestedBeers().remove(beer);
 
                 session.update(user);
                 session.getTransaction().commit();

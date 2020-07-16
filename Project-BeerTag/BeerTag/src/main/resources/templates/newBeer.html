@@ -31,7 +31,7 @@
         <form id="beer-frm" action="#" th:action="@{/beers/new}" th:object="${beerDTO}" method="POST" enctype="multipart/form-data">
             <h3>Beer</h3>
             <div class="reg-form-row">
-                <input type="text" class="form-control reg-form" placeholder="Name" th:field="*{beerName}">
+                <input type="text" class="form-control reg-form" placeholder="Name" th:field="*{name}">
             </div>
             <div class="reg-form-row">
                 <input type="text" class="form-control reg-form" placeholder="Alcohol by volume" th:field="*{ABV}">
@@ -62,7 +62,7 @@
                 <div class="custom-file">
                     <label class="custom-file-label" for="picture">Choose file (max size: 64KB)</label>
                     <input type="file" name="beerPicture" class="custom-file-input" id="picture"
-                           aria-describedby="inputGroupFileAddon01" th:field="*{beerPicture}">
+                           aria-describedby="inputGroupFileAddon01" th:field="*{picture}">
                 </div>
             </div>
             <div class="modal-footer">

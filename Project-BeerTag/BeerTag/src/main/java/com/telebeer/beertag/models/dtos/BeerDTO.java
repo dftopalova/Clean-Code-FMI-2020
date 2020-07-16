@@ -4,24 +4,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BeerDTO {
 
-    private String beerName;
+    private String name;
     private String creatorUsername;
     private double ABV;
     private String description;
     private String brewery;
     private String originCountry;
     private String beerStyle;
-    private MultipartFile beerPicture;
+    private MultipartFile picture;
 
     public BeerDTO() {
     }
 
-    public String getBeerName() {
-        return beerName;
+    public String getName() {
+        return name;
     }
 
-    public void setBeerName(String beerName) {
-        this.beerName = beerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCreatorUsername() {
@@ -72,11 +72,11 @@ public class BeerDTO {
         this.beerStyle = beerStyle;
     }
 
-    public MultipartFile getBeerPicture() {
-        return beerPicture;
+    public MultipartFile getPicture() {
+        return picture;
     }
 
-    public void setBeerPicture(MultipartFile beerPicture) {
-        this.beerPicture = beerPicture;
+    public void setPicture(MultipartFile picture) {
+        this.picture = picture;
     }
 }

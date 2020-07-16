@@ -48,7 +48,7 @@ public class BeerServiceImplTest {
     @Before
     public void before() {
         beer = new Beer();
-        beer.setBeerName("name");
+        beer.setName("name");
 
         BeerStyle style = new BeerStyle();
         style.setName("Light");
@@ -79,7 +79,7 @@ public class BeerServiceImplTest {
         // Arrange
         List<Beer> expectedResult = new ArrayList<>();
         expectedResult.add(beer);
-        when(mockRepository.getAllBeers()).thenReturn(expectedResult);
+        when(mockRepository.getAll()).thenReturn(expectedResult);
 
         // Act
         List<Beer> result = beerService.getAllBeers();
@@ -96,10 +96,10 @@ public class BeerServiceImplTest {
 
         //Act
         Beer result = beerService.getBeerById(1);
-        result.setBeerName("Kamenitza");
+        result.setName("Kamenitza");
 
         //Assert
-        assertEquals("Kamenitza", result.getBeerName());
+        assertEquals("Kamenitza", result.getName());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class BeerServiceImplTest {
     public void addBeer_Should_ThrowException_When_BeerNameAndStyleAreDuplicate() {
         //Arrange
         Beer testBeer = new Beer();
-        testBeer.setBeerName("name");
+        testBeer.setName("name");
 
         BeerStyle style = new BeerStyle();
         style.setName("Light");
@@ -151,7 +151,7 @@ public class BeerServiceImplTest {
     public void updateBeer_ShouldBeSuccessful() {
         // Arrange
         Beer newBeer = new Beer();
-        newBeer.setBeerName("new");
+        newBeer.setName("new");
         newBeer.setABV(9);
         newBeer.setDescription("new beer");
 
@@ -411,14 +411,14 @@ public class BeerServiceImplTest {
         beers.add(new Beer());
         beers.add(new Beer());
         beers.add(new Beer());
-        beers.get(0).setBeerName("Heineken");
-        beers.get(1).setBeerName("Ariana");
-        beers.get(2).setBeerName("Stella");
+        beers.get(0).setName("Heineken");
+        beers.get(1).setName("Ariana");
+        beers.get(2).setName("Stella");
 
         Mockito.when(beerService.getAllBeers()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, null, "asc");
-        String[] arr = {beers.get(0).getBeerName(), beers.get(1).getBeerName(), beers.get(2).getBeerName()};
+        String[] arr = {beers.get(0).getName(), beers.get(1).getName(), beers.get(2).getName()};
         String[] expected = {"Ariana", "Heineken", "Stella"};
 
         assertEquals(expected[0], arr[0]);
@@ -433,14 +433,14 @@ public class BeerServiceImplTest {
         beers.add(new Beer());
         beers.add(new Beer());
         beers.add(new Beer());
-        beers.get(0).setBeerName("Heineken");
-        beers.get(1).setBeerName("Ariana");
-        beers.get(2).setBeerName("Stella");
+        beers.get(0).setName("Heineken");
+        beers.get(1).setName("Ariana");
+        beers.get(2).setName("Stella");
 
         Mockito.when(beerService.getAllBeers()).thenReturn(beers);
 
         beers = beerService.sortBeers(null, null, "desc");
-        String[] arr = {beers.get(0).getBeerName(), beers.get(1).getBeerName(), beers.get(2).getBeerName()};
+        String[] arr = {beers.get(0).getName(), beers.get(1).getName(), beers.get(2).getName()};
         String[] expected = {"Stella", "Heineken", "Ariana"};
 
         assertEquals(expected[0], arr[0]);
@@ -455,9 +455,9 @@ public class BeerServiceImplTest {
         beers.add(new Beer());
         beers.add(new Beer());
         beers.add(new Beer());
-        beers.get(0).setBeerName("Heineken");
-        beers.get(1).setBeerName("Ariana");
-        beers.get(2).setBeerName("Stella");
+        beers.get(0).setName("Heineken");
+        beers.get(1).setName("Ariana");
+        beers.get(2).setName("Stella");
 
         Mockito.when(beerService.getAllBeers()).thenReturn(beers);
 

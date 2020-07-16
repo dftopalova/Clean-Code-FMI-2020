@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 public class BeerRepositoryImpl implements BeerRepository {
+
     private static final String BEER_SUCCESSFULLY_UPDATED =
             "{\"message\": \"Beer- %s successfully updated\"}";
 
@@ -24,7 +25,7 @@ public class BeerRepositoryImpl implements BeerRepository {
     }
 
     @Override
-    public List<Beer> getAllBeers() {
+    public List<Beer> getAll() {
         try (Session session = sessionFactory.openSession()) {
             Query<Beer> query = session.createQuery("from Beer where isDeleted=false", Beer.class);
 
@@ -82,7 +83,7 @@ public class BeerRepositoryImpl implements BeerRepository {
                 session.getTransaction().rollback();
             }
         }
-        return String.format(BEER_SUCCESSFULLY_UPDATED, beer.getBeerName());
+        return String.format(BEER_SUCCESSFULLY_UPDATED, beer.getName());
     }
 
     @Override

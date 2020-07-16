@@ -1,6 +1,5 @@
 package com.telebeer.beertag.services;
 
-import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.models.dtos.*;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return repository.getAllUsers();
+        return repository.getAll();
     }
 
     @Override
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getByFirstName(String firstName) {
-        List<User> result = repository.getByFirstName(firstName);
+        List<User> result = repository.getAllByFirstName(firstName);
 
         if (result == null || result.isEmpty()) {
             throw new NoContentException(
@@ -64,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getByLastName(String lastName) {
-        List<User> result = repository.getByLastName(lastName);
+        List<User> result = repository.getAllByLastName(lastName);
 
         if (result == null || result.isEmpty()) {
             throw new NoContentException(
@@ -84,12 +83,12 @@ public class UserServiceImpl implements UserService {
         }
         List<User> result = new ArrayList<>();
         if (firstName == null || firstName.isEmpty() && !lastName.isEmpty()) {
-            result = repository.getByLastName(lastName);
+            result = repository.getAllByLastName(lastName);
 
         } else if (lastName == null || lastName.isEmpty() && !firstName.isEmpty()) {
-            result = repository.getByFirstName(firstName);
+            result = repository.getAllByFirstName(firstName);
         } else {
-            result = repository.getByBothNames(firstName, lastName);
+            result = repository.getAllByFullName(firstName, lastName);
         }
         if (result.isEmpty()) {
             throw new NoContentException(
@@ -138,7 +137,7 @@ public class UserServiceImpl implements UserService {
             throw new CollisionException(String.format(USER_WITH_USERNAME_EXISTS, user.getUserName()));
         }
 
-        repository.addUser(user);
+        repository.createUser(user);
 
         return String.format(USER_SUCCESSFULLY_CREATED, user.getUserName());
     }
@@ -182,7 +181,7 @@ public class UserServiceImpl implements UserService {
     public Set<Beer> getUserDrankBeers(String username) {
         User user = getByUsername(username);
 
-        Set<Beer> drankBeers = user.getDrunkBeers();
+        Set<Beer> drankBeers = user.getTestedBeers();
 
         return drankBeers;
     }
@@ -201,7 +200,7 @@ public class UserServiceImpl implements UserService {
             throw new BeerExistsInOtherListException();
         }
 
-        repository.markBeerAsDranked(user, beer);
+        repository.markBeerAsTested(user, beer);
     }
 
     @Override
@@ -225,10 +224,10 @@ public class UserServiceImpl implements UserService {
     public void removeBeerFromDrankList(String username, int beerId) {
         User user = getByUsername(username);
 
-        Beer beer = user.getDrunkBeers().stream().filter(beer1 -> beer1.getBeerId() == beerId)
+        Beer beer = user.getTestedBeers().stream().filter(beer1 -> beer1.getBeerId() == beerId)
                 .findFirst().orElseThrow(() -> new NoContentException(BEER_DOES_NOT_EXIST_IN_THE_LIST_MESSAGE));
 
-        repository.removeBeerfromDrankList(user, beer);
+        repository.removeBeerFromTestedList(user, beer);
     }
 
     @Override
@@ -259,7 +258,7 @@ public class UserServiceImpl implements UserService {
 
         HashMap<Integer, Beer> drunkBeers = new HashMap<>();
 
-        for (Beer beer : user.getDrunkBeers()) {
+        for (Beer beer : user.getTestedBeers()) {
             drunkBeers.put(beer.getBeerId(), beer);
         }
 

@@ -14,11 +14,11 @@ public class Tag {
     @PositiveOrZero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id")
-    private int tagId;
+    @Column(name = "id")
+    private int id;
 
-    @Column(name = "tag_body")
-    private String tagBody;
+    @Column(name = "body")
+    private String body;
 
     @Column(name = "isDeleted")
     private boolean isDeleted;
@@ -27,31 +27,23 @@ public class Tag {
     @JsonIgnore
     private Set<Beer> beers = new HashSet<>();
 
-    public Set<Beer> getBeers() {
-        return beers;
-    }
-
-    public void setBeers(Set<Beer> beers) {
-        this.beers = beers;
-    }
-
     public Tag() {
     }
 
-    public int getTagId() {
-        return tagId;
+    public int getId() {
+        return id;
     }
 
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
+    public void setId(int tagId) {
+        this.id = tagId;
     }
 
-    public String getTagBody() {
-        return tagBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setTagBody(String tagBody) {
-        this.tagBody = tagBody;
+    public void setBody(String tagBody) {
+        this.body = tagBody;
     }
 
     public boolean isDeleted() {
@@ -60,5 +52,13 @@ public class Tag {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public Set<Beer> getBeers() {
+        return beers;
+    }
+
+    public void setBeers(Set<Beer> beers) {
+        this.beers = beers;
     }
 }

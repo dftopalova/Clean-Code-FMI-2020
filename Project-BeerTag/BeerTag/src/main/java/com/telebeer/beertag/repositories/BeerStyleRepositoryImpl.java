@@ -13,8 +13,8 @@ import java.util.List;
 
 @Repository
 public class BeerStyleRepositoryImpl implements BeerStyleRepository {
-    private static final String STYLE_SUCCESSFULLY_ADDED =
-            "{\"message\": \"Beer style- %s successfully added\"}";
+    private static final String STYLE_SUCCESSFULLY_CREATED =
+            "{\"message\": \"Beer style- %s successfully created\"}";
 
     private SessionFactory sessionFactory;
 
@@ -24,41 +24,42 @@ public class BeerStyleRepositoryImpl implements BeerStyleRepository {
     }
 
     @Override
-    public String addBeerStyle(BeerStyle beerStyle) {
+    public String createBeerStyle(BeerStyle beerStyle) {
         try (Session session = sessionFactory.openSession()) {
             session.save(beerStyle);
         }
-        return String.format(STYLE_SUCCESSFULLY_ADDED, beerStyle.getName());
+        return String.format(STYLE_SUCCESSFULLY_CREATED, beerStyle.getName());
     }
 
 
     @Override
-    public List<BeerStyle> getAllBeerStyles() {
+    public List<BeerStyle> getAll() {
         try (Session session = sessionFactory.openSession()) {
-            Query<BeerStyle>  query = session
+            Query<BeerStyle> query = session
                     .createQuery("from BeerStyle where isDeleted = false", BeerStyle.class);
             return query.list();
         }
     }
 
     @Override
-    public BeerStyle  getById(int id) {
+    public BeerStyle getById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(BeerStyle .class, id);
+            return session.get(BeerStyle.class, id);
         }
     }
 
     @Override
-    public BeerStyle getBeerStyleByName(String name) {
+    public BeerStyle getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
             Query<BeerStyle> query = session
                     .createQuery("from BeerStyle where isDeleted = false and name = :name",
-                     BeerStyle .class);
+                            BeerStyle.class);
             query.setParameter("name", name);
             return query.getSingleResult();
         }
     }
 
+    @Override
     public void deleteBeerStyle(int id) {
         try (Session session = sessionFactory.openSession()) {
             try {

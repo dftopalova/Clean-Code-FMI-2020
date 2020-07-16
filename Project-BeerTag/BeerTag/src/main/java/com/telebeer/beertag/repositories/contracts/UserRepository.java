@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UserRepository {
 
-    List<User> getByFirstName(String firstName);
+    List<User> getAllByFirstName(String firstName);
 
-    List<User> getByLastName(String lastName);
+    List<User> getAllByLastName(String lastName);
 
-    List<User> getByBothNames(String firstName, String lastName);
+    List<User> getAllByFullName(String firstName, String lastName);
 
-    List<User> getAllUsers();
+    List<User> getAll();
 
     User getById(int id);
 
@@ -22,15 +22,15 @@ public interface UserRepository {
 
     void deleteUser(User user);
 
-    void addUser(User user);
+    void createUser(User user);
 
     void updateUser(User user);
 
-    void markBeerAsDranked(User user, Beer beer);
+    void markBeerAsTested(User user, Beer beer);
 
     void markBeerAsWish(User user, Beer beer);
 
-    void removeBeerfromDrankList(User user, Beer beer);
+    void removeBeerFromTestedList(User user, Beer beer);
 
     void removeBeerFromWishes(User user, Beer beer);
 

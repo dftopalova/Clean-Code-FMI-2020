@@ -23,15 +23,14 @@ public class CountryRepositoryImpl implements CountryRepository {
         this.sessionFactory = sessionFactory;
     }
 
-
-    public Map<Integer, Country> getAllCountries() {
+    @Override
+    public Map<Integer, Country> getAll() {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<Country> query = currentSession
                     .createQuery("from Country where isDeleted = false", Country.class);
             return queryToMap(query);
         }
     }
-
 
     @Override
     public Country getById(int id) {
@@ -41,7 +40,7 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     @Override
-    public Country getCountryByName(String name) {
+    public Country getByName(String name) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<Country> query = currentSession
                     .createQuery("from Country where isDeleted = false and name = :name",
@@ -52,7 +51,7 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     @Override
-    public Country getCountryByCode(String code) {
+    public Country getByCode(String code) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<Country> query = currentSession
                     .createQuery("from Country where isDeleted = false and code = :code",
@@ -63,7 +62,7 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     @Override
-    public Map<Integer, Country> getCountriesByContinent(String continentCode) {
+    public Map<Integer, Country> getAllByContinentCode(String continentCode) {
         try (Session currentSession = sessionFactory.openSession()) {
             Query<Country> query = currentSession
                     .createQuery("from Country where isDeleted = false and continent_code = :continent_code",
@@ -78,7 +77,7 @@ public class CountryRepositoryImpl implements CountryRepository {
         List<Country> countriesList = query.list();
 
         for (int i = 0; i < countriesList.size(); i++) {
-            result.put(countriesList.get(i).getCountry_id(), countriesList.get(i));
+            result.put(countriesList.get(i).getId(), countriesList.get(i));
         }
         return result;
     }
