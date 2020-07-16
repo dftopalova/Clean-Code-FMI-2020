@@ -120,7 +120,7 @@ public class BeerServiceImpl implements BeerService {
 
     }
 
-    private List<Beer> getBeersByStyle(String style) {
+    public List<Beer> getBeersByStyle(String style) {
         List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getStyle().getName().equalsIgnoreCase(style))
@@ -129,7 +129,7 @@ public class BeerServiceImpl implements BeerService {
         return result;
     }
 
-    private List<Beer> getBeersByCountry(String countryName) {
+    public List<Beer> getBeersByCountry(String countryName) {
         List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getOriginCountry().getName().equalsIgnoreCase(countryName))
@@ -138,7 +138,7 @@ public class BeerServiceImpl implements BeerService {
         return result;
     }
 
-    private List<Beer> getBeersByStyleAndCountry(String style, String countryName) {
+    public List<Beer> getBeersByStyleAndCountry(String style, String countryName) {
         List<Beer> result = getAll()
                 .stream()
                 .filter(beer -> beer.getOriginCountry().getName().equalsIgnoreCase(countryName)

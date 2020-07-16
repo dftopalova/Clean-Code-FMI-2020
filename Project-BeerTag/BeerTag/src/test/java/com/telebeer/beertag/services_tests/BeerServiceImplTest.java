@@ -1,6 +1,7 @@
 package com.telebeer.beertag.services_tests;
 
 import com.telebeer.beertag.models.entities.*;
+import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.*;
 import org.junit.Before;
@@ -193,29 +194,6 @@ public class BeerServiceImplTest {
         List<Beer> result = beerService.getBeersByCreator("test");
 
         // Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void getBeersByStyle_ShouldBeSuccessful() {
-        // Arrange
-        String testStyle = "Light";
-        List<Beer> expectedResult = new ArrayList<>();
-        expectedResult.add(beer);
-        when(beerServiceMock.getBeersByStyle(testStyle)).thenReturn(expectedResult);
-
-        List<Beer> allBeers = new ArrayList<>();
-        allBeers.add(beer);
-        allBeers.add(new Beer());
-        BeerStyle tmpStyle = new BeerStyle();
-        tmpStyle.setName("Dark");
-        allBeers.get(1).setStyle(tmpStyle);
-
-        when(beerService.getAll()).thenReturn(allBeers);
-        //Act
-        List<Beer> result = beerService.getBeersByStyle("Light");
-
-        //Assert
         assertEquals(expectedResult, result);
     }
 
