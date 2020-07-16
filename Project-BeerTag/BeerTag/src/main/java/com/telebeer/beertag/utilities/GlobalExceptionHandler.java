@@ -1,6 +1,5 @@
 package com.telebeer.beertag.utilities;
 
-
 import com.telebeer.beertag.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

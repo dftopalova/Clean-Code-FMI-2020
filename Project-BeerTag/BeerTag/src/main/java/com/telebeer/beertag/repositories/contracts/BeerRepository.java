@@ -12,7 +12,7 @@ public interface BeerRepository {
 
     List<Beer> getBeerByName(String name);
 
-    void addBeer(Beer beer);
+    void createBeer(Beer beer);
 
     void removeBeer(int id);
 

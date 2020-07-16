@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <link rel="stylesheet" th:href="@{~/sidebar.css}" href="/sidebar.css">
+    <link rel="stylesheet" th:href="@{~/sidebar-themes.css}" href="/sidebar-themes.css">
+</head>
+
+<body>
+<div class="page-wrapper pinned default-theme sidebar-bg bg1 toggled" th:fragment="sidebar">
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <!-- sidebar-header  -->
+            <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" src="http://localhost:8080/images/user.jpg"
+                         alt="User picture">
+                </div>
+                <div class="user-info">
+                    <div id="get-username">
+                        <strong> <span sec:authentication="name"></span></strong>
+                    </div>
+
+                    <div class="role-pane" sec:authorize="hasRole('ROLE_USER')">
+                        Registered user
+                    </div>
+                    <div class="role-pane" sec:authorize="hasRole('ROLE_ADMIN')">
+                        ADMIN
+                    </div>
+
+                    <span class="user-status">
+                            <i class="fa fa-circle"></i>
+                            <span>Online</span>
+                        </span>
+                </div>
+            </div>
+            <!-- sidebar-menu  -->
+            <div class=" sidebar-item sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+
+
+                    <li class="sidebar-dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="#">
+                            <i class="fa fa-beer"></i>
+                            <span class="menu-text">ADMIN ACTIONS</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:8080/beers">Beers</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/admin/users">Users</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/admin/tags">Tags</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/admin/breweries">Breweries</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/admin/styles">Styles</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="http://localhost:8080/users/profile">
+                            <i class="fa fa-horse-head  "></i>
+                            <span class="menu-text">My Profile</span>
+                            <!--                            <span class="badge badge-pill badge-warning">New</span>-->
+                        </a>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-beer"></i>
+                            <span class="menu-text">Beers</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:8080/beers">All beers</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/beers/new">Create new beer</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/users/myBeers">My beers</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/users/wishlist">Wishlist</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8080/users/drankBeers">Drank beers</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--<li class="sidebar-dropdown">-->
+                        <!--<a href="#">-->
+                            <!--<i class="far fa-gem"></i>-->
+                            <!--<span class="menu-text">Components</span>-->
+                        <!--</a>-->
+                        <!--<div class="sidebar-submenu">-->
+                            <!--<ul>-->
+                                <!--<li>-->
+                                    <!--<a href="#">General</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Panels</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Tables</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Icons</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Forms</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-globe"></i>
+                            <span class="menu-text">Maps</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="https://goo.gl/maps/1C9rNFwMJ5bXhD2MA">Head Office </a>
+                                </li>
+                                <li>
+                                    <a href="https://goo.gl/maps/1C9rNFwMJ5bXhD2MA">Telerik Academy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="header-menu">
+                        <span>Extra</span>
+                    </li>
+                    <li>
+                        <a href="/apiview">
+                            <i class="fa fa-book"></i>
+                            <span class="menu-text">API Documentation</span>
+                            <span class="badge badge-pill badge-primary">Beta</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://outlook.office365.com/owa/calendar/c0b5c466dcbe4c26862bcde92de23df1@telerikacademy.com/2b809dafdd1746f9baffc8b3795044ba14949828133395943283/calendar.html">
+                            <i class="fa fa-calendar"></i>
+                            <span class="menu-text">Calendar</span>
+                        </a>
+                    </li>
+
+                    <li class="header-menu">
+                        <span></span>
+                    </li>
+                    <li class="header-menu">
+                        <span></span>
+                    </li>
+                    <li class="header-menu">
+                        <span></span>
+                    </li>
+
+
+                    <li>
+                        <a href="/logout" th:action="@{/logout}" method="post">
+                            <i class="fa fa-sign-out-alt"></i>
+                            <span class="menu-text">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- sidebar-menu  -->
+        </div>
+
+    </nav>
+
+</div>
+<!-- page-wrapper -->
+
+<script th:src="@{~/scripts/jquery-3.4.1.min.js}" src="/scripts/jquery-3.4.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script th:src="@{~/scripts/popper.js}" src="scripts/popper.js"></script>
+<script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script th:src="@{~/scripts/sidebar.js}" src="/scripts/sidebar.js"></script>
+<script th:src="@{~/scripts/profile.js}" src="/scripts/profile.js"></script>
+
+
+<!--<script sec:authorize="hasRole('ROLE_ADMIN')" src="/scripts/adminBeers.js"></script>-->
+</body>
+
+</html>

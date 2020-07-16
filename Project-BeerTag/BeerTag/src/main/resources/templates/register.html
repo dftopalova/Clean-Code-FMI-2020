@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="registration-style.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="inner">
+        <div class="reg-img" >
+            <img src="images/reg-cheers.jpg" alt="">
+        </div>
+        <form action="#" th:action="@{/register}" th:object="${user}" method="post" style="padding-left: 70px">
+            <div class="reg-form-row" style="text-align: center; float: bottom ; margin-left: 30px; ">
+                <h3>Register</h3>
+            </div>
+            <p>
+                <i th:if="${error != null}" th:text="${error}" class="error" style="color: red; text-align: center"></i>
+            </p>
+
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="First name" th:field="*{firstName}">
+            </div>
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="Last name" th:field="*{lastName}">
+            </div>
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="Username" th:field="*{userName}">
+            </div>
+            <div class="reg-form-row">
+                <input type="password" class="form-control reg-form" placeholder="Password" th:field="*{password}">
+            </div>
+
+            <div class="reg-form-row">
+                <div id="regHolder" style="text-align: center; float: bottom">
+                    <button type="submit" value="Save">Register</button>
+                </div>
+            </div>
+
+
+            <div class="reg-form-row">
+                <div id="buttonHolder" style="text-align: center; float: bottom ">
+                    <a href="#" th:href="@{/login}">Already a member?</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script src="scripts/jquery-3.4.1.min.js"></script>
+<script src="scripts/registration.js"></script>
+</body>
+</html>

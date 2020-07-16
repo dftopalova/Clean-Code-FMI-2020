@@ -1,6 +1,5 @@
 package com.telebeer.beertag.services_tests;
 
-import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.*;
@@ -122,10 +121,10 @@ public class BeerServiceImplTest {
         //Arrange
 
         //Act
-        beerService.addBeer(beer);
+        beerService.createBeer(beer);
 
         //Assert
-        verify(mockRepository).addBeer(beer);
+        verify(mockRepository).createBeer(beer);
     }
 
     @Test(expected = CollisionException.class)
@@ -144,7 +143,7 @@ public class BeerServiceImplTest {
         when(beerService.getAllBeers()).thenReturn(beers);
 
         //Act,Assert
-        beerService.addBeer(beer);
+        beerService.createBeer(beer);
     }
 
 

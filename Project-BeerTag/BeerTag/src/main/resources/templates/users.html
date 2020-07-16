@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet"  href="/static/styles.css"/>
+    <meta charset="UTF-8">
+    <title>List of all users</title>
+</head>
+<body>
+
+<div th:if="${users.isEmpty()}">
+    <h2 th:text="#{userTable.header.noUsers}">No users</h2>
+</div>
+
+<div th:unless="${users.isEmpty()}">
+
+    <h2 th:text="#{userTable.header}">Users (design)</h2>
+
+    <div class="table">
+
+        <div class="header">
+            <div class="cell" th:text="#{table.id}">1</div>
+            <div class="cell" th:text="#{table.firstName}">1</div>
+            <div class="cell" th:text="#{table.lastName}">1</div>
+        </div>
+
+        <div class="row" th:each="user : ${users}">
+
+            <div class="cellID" th:text="${user.getId()}" style="color: pink; display: none">1</div>
+
+            <div class="cell" th:text="${user.getFirstName()}">Petar</div>
+
+            <div class="cell" th:text="${user.getLastName()}">Training</div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

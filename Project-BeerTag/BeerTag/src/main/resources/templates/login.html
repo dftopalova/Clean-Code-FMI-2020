@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/static/styles.css}" href="/static/styles.css"/>
+    <link rel="stylesheet" href="registration-style.css">
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="inner">
+        <div class="image-holder js-tilt">
+            <img src="images/logo-transparent-background500x333.png" alt="">
+        </div>
+        <form th:action="@{/authenticate}" method="post">
+            <div class="reg-form-row" style="text-align: center; float: bottom ; margin-left: 30px; ">
+                <h3>Login</h3>
+            </div>
+            <br>
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="Username" id="username" name="username">
+            </div>
+            <div class="reg-form-row">
+                <input type="password" class="form-control reg-form" placeholder="Password" id="password"
+                       name="password">
+            </div>
+
+            <div class="reg-form-row">
+                <div id="loginHolder" style="text-align: center; float: bottom">
+                    <button type="submit" value="Login">Login</button>
+                </div>
+            </div>
+
+            <div class="reg-form-row">
+                <div id="buttonHolder" style="text-align: center; float: bottom">
+                        <a href="#" th:href="@{/register}">Not a member?</a>
+                </div>
+            </div>
+
+
+        </form>
+
+
+    </div>
+</div>
+
+
+<script src="scripts/jquery-3.4.1.min.js"></script>
+<script src="scripts/registration.js"></script>
+<script src="scripts/tilt.jquery.min.js"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+</body>
+</html>

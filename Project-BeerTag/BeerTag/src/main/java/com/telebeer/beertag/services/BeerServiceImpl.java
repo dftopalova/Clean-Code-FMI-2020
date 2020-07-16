@@ -54,7 +54,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void addBeer(Beer beer) {
+    public void createBeer(Beer beer) {
 
         if (beerExists(beer.getBeerName(), beer.getStyle().getName())) {
             throw new CollisionException(String.format(BEER_WITH_SAME_NAME_AND_STYLE_EXISTS
@@ -65,7 +65,7 @@ public class BeerServiceImpl implements BeerService {
             throw new MalformedRequestException(ALCOHOL_BY_VOLUME_INVALID_MESSAGE);
         }
 
-        repository.addBeer(beer);
+        repository.createBeer(beer);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class BeerRestController {
 
     @PostMapping
     public void addBeer(@Valid @RequestBody Beer beer) { //it must be concrete class so json deserializer can work
-        service.addBeer(beer);
+        service.createBeer(beer);
     }
 
     @PutMapping("/{id}")

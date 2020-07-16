@@ -15,7 +15,7 @@ public interface BeerService {
 
     List<Beer> getBeerByName(String name);
 
-    void addBeer(Beer beer);
+    void createBeer(Beer beer);
 
     String updateBeer(int id, Beer beer);
 

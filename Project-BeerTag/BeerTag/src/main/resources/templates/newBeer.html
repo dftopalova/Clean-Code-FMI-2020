@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <!--		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">-->
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{~/beer-create.css}" >
+
+</head>
+<body>
+<div th:insert="fragments/navigation"></div>
+
+<script sec:authorize="isAuthenticated()">
+    $("#wrapper").attr('style', 'margin-left: 80px');
+</script>
+
+<div class="wrapper">
+    <div class="inner">
+        <div class="image-holder js-tilt">
+            <img id="beer-img" src="http://localhost:8080/images/beer_text.jpg"  width="200px"  alt="">
+        </div>
+        <form id="beer-frm" action="#" th:action="@{/beers/new}" th:object="${beerDTO}" method="POST" enctype="multipart/form-data">
+            <h3>Beer</h3>
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="Name" th:field="*{beerName}">
+            </div>
+            <div class="reg-form-row">
+                <input type="text" class="form-control reg-form" placeholder="Alcohol by volume" th:field="*{ABV}">
+            </div>
+            <div class="reg-form-row">
+                <textarea class="form-control reg-form" id="description" name="description"
+                          th:field="*{description}"></textarea>
+            </div>
+            <div class="reg-form-row">
+                <select th:field="*{originCountry}" class="form-control" name="country">
+                    <option th:each="country : ${countries}" th:value="${country}"
+                            th:text="${country}"></option>
+                </select>
+            </div>
+            <div class="reg-form-row">
+                <select th:field="*{beerStyle}" class="form-control" name="beerStyle" id="beerStyle">
+                    <option th:each="style : ${styles}" th:value="${style}"
+                            th:text="${style}"></option>
+                </select>
+            </div>
+            <div class="reg-form-row">
+                <select th:field="*{brewery}" class="form-control" name="brewery" id="brewery">
+                    <option th:each="brewery : ${breweries}" th:value="${brewery}"
+                            th:text="${brewery}"></option>
+                </select>
+            </div>
+            <div class="reg-form-row">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="picture">Choose file (max size: 64KB)</label>
+                    <input type="file" name="beerPicture" class="custom-file-input" id="picture"
+                           aria-describedby="inputGroupFileAddon01" th:field="*{beerPicture}">
+                </div>
+            </div>
+            <div class="modal-footer">
+<!--                <input type="submit" class="btn btn-primary" value="Create">-->
+                <button type="submit" class="beer-crt-btn btn btn-secondary" value="Create" >Create</button>
+                <button type="button" class="beer-crt-btn btn btn-secondary" data-dismiss="modal">Reset</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script th:src="@{~/scripts/jquery-3.4.1.min.js}"></script>
+<!--<script th:src="@{~/scripts/registration.js}"></script>-->
+<script th:src="@{~/scripts/tilt.jquery.min.js}"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1
+    })
+</script>
+</body>
+</html>

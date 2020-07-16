@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>BeerTag List of all beers</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="allBeers.css">
+
+</head>
+
+<body>
+
+<div th:insert="fragments/navigation"></div>
+
+<script sec:authorize="isAuthenticated()">
+    $("#wrapper").attr('style', 'margin-left: 80px');
+</script>
+
+<!-- Page Content -->
+<div id="wrapper" class="container">
+    <h2 style="margin-left: 250px ; margin-top: 20px ">BEER CATALOG</h2>
+
+    <div class="row">
+
+        <div class="col-lg-9">
+
+            <label for="sortBtns"><b>Sort by:</b></label>
+            <div id="sortBtns" class="btn-group btn-group-justified" role="group">
+                <button id="abvBtn" type="button" class="btn btn-outline">ABV
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+                <button id="rateBtn" type="button" class="btn btn-secondary">Rating
+                    <i class="fa fa-sort" aria-hidden="true"></i></button>
+                <button id="alphaBtn" type="button" class="btn btn-default btn-sm">Alphabetically
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+            </div>
+            <br><br>
+            <label for="filterBtns"><b>Filter by:</b></label>
+            <div id="filterBtns" class="btn-group btn-group-justified" role="group">
+                <div class="reg-form-row">
+                    <select id="countryFilter" class="form-control" name="country">
+                        <option>Country</option>
+                        <option th:each="country : ${countries}" th:value="${country}"
+                                th:text="${country}" placeholder="Country"></option>
+                    </select>
+                </div>
+                <div class="reg-form-row">
+                    <select id="styleFilter" class="form-control" name="beerStyle">
+                        <option>Style</option>
+                        <option th:each="style : ${styles}" th:value="${style}"
+                                th:text="${style}" placeholder="Style">Style</option>
+                    </select>
+                </div>
+            </div>
+            <br><br>
+            <div class="row" id="container">
+
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!--Beer details modal-->
+<div class="modal-container">
+    <!-- Modal -->
+    <div class="modal fade" id="beerModal" role="dialog">
+        <div class=" modal-lg modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div id="beer-modal-body" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- EDIT Beer details modal-->
+<div class="modal-container">
+    <!-- Modal -->
+    <div class="modal fade" id="editBeerModal" role="dialog">
+        <div class=" modal-md modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div id="edit-beer-modal-body" class="modal-body" style="background: rgba(255,252,85,0.21); width: 100%">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--ADMIN-->
+<script sec:authorize="hasRole('ROLE_ADMIN')"  th:src="@{/scripts/adminBeers.js}" ></script>
+<!--USER-->
+<script sec:authorize="hasRole('ROLE_USER')" src="scripts/allBeers.js"></script>
+<!--NOT USER-->
+<script sec:authorize="!isAuthenticated()" src="scripts/allBeersNOAUTH.js"></script>
+
+<!-- CSS -->
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+</html>

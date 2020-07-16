@@ -50,7 +50,7 @@ public class BeerRepositoryImpl implements BeerRepository {
     }
 
     @Override
-    public void addBeer(Beer beer) {
+    public void createBeer(Beer beer) {
         try (Session session = sessionFactory.openSession()) {
             session.saveOrUpdate(beer);
         }

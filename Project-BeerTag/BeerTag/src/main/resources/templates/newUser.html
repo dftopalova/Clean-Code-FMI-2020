@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating a new user</title>
+    <link rel="stylesheet" th:href="@{/static/styles.css}" type="text/css" href="../static/styles.css"/>
+</head>
+<body>
+
+<ul>
+    <li>
+        <a href="#" th:href="@{/users}">See all users</a>
+    </li>
+    <li>
+        <a href="#" th:href="@{/users/new}">Create new user</a>
+    </li>
+</ul>
+
+<form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
+
+    <br>
+    <label th:text="#{user.header.firstName}">User name:</label>
+    <input type="text" th:field="*{firstName}"/>
+    <label style="color: red" th:errors="*{firstName}">first name error</label>
+
+    <br>
+    <label th:text="#{user.header.lastName}">User name:</label>
+    <input type="text" th:field="*{lastName}"/>
+    <label class="error" th:errors="*{lastName}" th:text="#{newUser.invalidName}">last name error</label>
+
+    <br>
+    <label>username:</label>
+    <input type="text" th:field="*{userName}"/>
+    <!--    <label class="error" th:errors="*{lastName}" th:text="#{newUser.invalidName}">last name error</label>-->
+
+    <br>
+    <label>password:</label>
+    <input type="password" th:field="*{password}"/>
+
+
+    <label for="countryList" >
+        <select  id="countryList" >
+
+        </select>
+    </label>
+
+    <br/><br/>
+
+    <input type="submit" value="Save"/>
+
+</form>
+<script src="../scripts/jquery-3.4.1.min.js"></script>
+<script src="../scripts/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>API Docs</title>
+    <link rel="stylesheet" type="text/css" href="swagger-ui.css">
+</head>
+<body>
+<div th:insert="fragments/navigation"></div>
+
+<script sec:authorize="isAuthenticated()">
+    $("#wrapper").attr('style', 'margin-left: 80px');
+</script>
+
+
+<div id="wrapper">
+    <div id="swagger-ui"></div>
+
+
+    <script>
+        window.onload = function () {
+            const ui = SwaggerUIBundle({
+                url: "http://localhost:8080/v2/api-docs",
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ]
+            })
+
+            window.ui = ui
+        }
+    </script>
+
+
+    <script src="scripts/swagger-ui-bundle.js"></script>
+    <script src="scripts/swagger-ui-standalone-preset.js"></script>
+</div>
+</body>
+</html>

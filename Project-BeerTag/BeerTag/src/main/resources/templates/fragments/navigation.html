@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="navigation">
+    <title>Header</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{~/styles.css}"/>
+    <link rel="stylesheet" th:href="@{~/ssocicon_css/styles.css}">
+
+</head>
+
+<body>
+<div id="loading" class="se-pre-con"></div>
+<div sec:authorize="isAuthenticated()" th:insert="fragments/sidebar"></div>
+
+<script sec:authorize="isAuthenticated()">
+    $("#wrapper").attr('style', 'margin-left: 80px');
+</script>
+
+<div id="wrapper">
+    <nav id="navigation-fragment" class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation"
+         style="height: 70px">
+
+        <a class="navbar-brand" href="http://localhost:8080/">
+            <img src="http://localhost:8080/images/logo-transparent-background300x200.png" width="100" height="70"
+                 alt="LOGO">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+                aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"> </span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/apiview">API</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/beers">Beers catalog</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/about">About</a>
+                </li>
+
+            </ul>
+
+            <div sec:authorize="!isAuthenticated()">
+
+                <form th:action="@{/login}" method="get">
+                    <button class="btn btn-link my-2 my-sm-0" type="submit"
+                            value="Login">Login
+                    </button>
+                </form>
+
+            </div>
+
+
+            <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-link my-2 my-sm-0" type="submit"
+                            value="Logout">Logout
+                    </button>
+                </form>
+
+
+            </div>
+    </nav>
+
+</div>
+
+
+<script th:src="@{~/scripts/jquery-3.4.1.min.js}" src="/scripts/jquery-3.4.1.min.js"></script>
+<script th:src="@{~/scripts/popper.js}" src="scripts/popper.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script th:src="@{~/scripts/navigation.js}" src="/scripts/navigation.js"></script>
+</body>
+
+
+</html>

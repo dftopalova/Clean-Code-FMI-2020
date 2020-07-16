@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>WishList</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/allBeers.css}">
+
+</head>
+
+<body style="background: linear-gradient(360deg, #ffffff 10%, #FFFB5A 360%)">
+
+<div th:insert="fragments/navigation"></div>
+
+<script sec:authorize="isAuthenticated()">
+    $("#wrapper").attr('style', 'margin-left: 80px');
+</script>
+
+<!-- Page Content -->
+<div id="wrapper" class="container">
+    <h2 class="display-3" style="margin-left: 250px ; margin-top: 20px ">MY WISHLIST</h2>
+
+    <div class="row">
+
+        <div class="col-lg-9">
+
+            <br><br>
+            <div class="row" id="container">
+
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!--Beer details modal-->
+<div class="modal-container">
+    <!-- Modal -->
+    <div class="modal fade" id="beerModal" role="dialog">
+        <div class=" modal-lg modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div id="beer-modal-body" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- EDIT Beer details modal-->
+<div class="modal-container">
+    <!-- Modal -->
+    <div class="modal fade" id="editBeerModal" role="dialog">
+        <div class=" modal-md modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
+                <div id="edit-beer-modal-body" class="modal-body"
+                     style="background: rgba(255,252,85,0.21); width: 100%">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{/scripts/userWishlist.js}"></script>
+
+<!-- CSS -->
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+</html>
