@@ -55,43 +55,43 @@ response payloads. It is integrated with Swagger.
 *UI*
 * Overview of the home page
 
-![home](/demo/home.mp4)
+![home](/demo/home.gif)
 
 
 * Overview of the REST API Documentation, integrated with Swagger
 
 
-![api](/demo/swagger.mp4)
+![api](/demo/swagger.gif)
 
 
 * Unauthorized view of the beer catalog with sorting and filtering functionality and details view
 
 
-![unauth](/demo/beers-not-auth.mp4)
+![unauth](/demo/beers-not-auth.gif)
 
 
 * Authorized user sidebar and beer creation view
 
 
-![auth](/demo/home-auth.mp4)
+![auth](/demo/home-auth.gif)
 
 
 * Authorized user beer details and rating + favourites functionality
 
-![authdet](/demo/rate-beer.mp4)
+![authdet](/demo/rate-beer.gif)
 
 
 * Authorized user beer details and add/remove tag functionality
 
-![authtag](/demo/add-tag.mp4)
+![authtag](/demo/add-tag.gif)
 
 
 * Authorized user beer details and My beers view
 
 
-![authmybeers](demo/tested-beers.mp4)
+![authmybeers](demo/my-beers.gif)
 
 
 * Authorized user beer details and Wishlist/Drank beers view
 
-![authfavbeers](demo/add-beer-to-wishes.mp4)
+![authfavbeers](demo/add-beer-to-wishes.gif)
