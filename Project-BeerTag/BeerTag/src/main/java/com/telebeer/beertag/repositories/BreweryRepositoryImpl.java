@@ -2,6 +2,7 @@ package com.telebeer.beertag.repositories;
 
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BreweryRepository;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,7 +19,7 @@ public class BreweryRepositoryImpl implements BreweryRepository {
 
     private SessionFactory sessionFactory;
 
-   @Autowired
+    @Autowired
     public BreweryRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

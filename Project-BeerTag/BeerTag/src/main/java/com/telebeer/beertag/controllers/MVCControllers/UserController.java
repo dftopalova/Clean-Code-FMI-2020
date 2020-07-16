@@ -1,6 +1,7 @@
 package com.telebeer.beertag.controllers.MVCControllers;
 
 import com.telebeer.beertag.services.contracts.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

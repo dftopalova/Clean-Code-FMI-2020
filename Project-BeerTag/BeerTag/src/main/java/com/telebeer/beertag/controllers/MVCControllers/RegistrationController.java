@@ -2,6 +2,7 @@ package com.telebeer.beertag.controllers.MVCControllers;
 
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

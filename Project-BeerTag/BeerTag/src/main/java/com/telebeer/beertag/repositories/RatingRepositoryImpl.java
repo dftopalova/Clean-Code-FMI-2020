@@ -2,6 +2,7 @@ package com.telebeer.beertag.repositories;
 
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.RatingRepository;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

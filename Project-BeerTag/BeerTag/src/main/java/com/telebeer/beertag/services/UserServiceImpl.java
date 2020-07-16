@@ -7,6 +7,7 @@ import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;
 import static com.telebeer.beertag.utilities.constants.UserConstants.*;
 import com.telebeer.beertag.utilities.ValidationHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

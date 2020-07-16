@@ -3,6 +3,7 @@ package com.telebeer.beertag.services;
 import com.telebeer.beertag.models.entities.BeerStyle;
 import com.telebeer.beertag.repositories.contracts.BeerStyleRepository;
 import com.telebeer.beertag.services.contracts.BeerStyleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,8 @@ public class BeerStyleServiceImpl implements BeerStyleService {
 
     @Override
     public void deleteBeerStyle(int id) {
-            repository.deleteBeerStyle(id);
-        }
-
+        repository.deleteBeerStyle(id);
     }
+
+}
 

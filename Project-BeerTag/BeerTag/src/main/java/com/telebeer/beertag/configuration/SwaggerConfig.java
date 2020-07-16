@@ -25,18 +25,14 @@ public class SwaggerConfig {
                 .build().apiInfo(apiInfo());
     }
 
-        private ApiInfo apiInfo() {
-            return new ApiInfoBuilder().title("BeerTag REST API")
-                    .description("Documentation for REST API for BeerTag app for developers")
-                    .license("Apache 2.0")
-                    .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                    .version("1.0.0")
-                    .build();
-        }
-
-
-
-
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("BeerTag REST API")
+                .description("Documentation for REST API for BeerTag app for developers")
+                .license("Apache 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .version("1.0.0")
+                .build();
     }
+}
 
 

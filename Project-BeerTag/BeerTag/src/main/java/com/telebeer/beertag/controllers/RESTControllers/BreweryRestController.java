@@ -2,6 +2,7 @@ package com.telebeer.beertag.controllers.RESTControllers;
 
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.services.contracts.BreweryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class BreweryRestController {
 
     @PostMapping
     public String createBrewery(@RequestBody Brewery brewery) {
-       return service.createBrewery(brewery);
+        return service.createBrewery(brewery);
     }
 
     @GetMapping("/{id}")

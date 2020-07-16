@@ -5,6 +5,7 @@ import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.RatingRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.RatingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

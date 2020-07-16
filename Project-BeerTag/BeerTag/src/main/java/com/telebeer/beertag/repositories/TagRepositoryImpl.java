@@ -4,6 +4,8 @@ import com.telebeer.beertag.models.entities.Beer;
 import com.telebeer.beertag.models.entities.Tag;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
+import com.telebeer.beertag.exceptions.*;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -4,7 +4,9 @@ import com.telebeer.beertag.models.dtos.BeerDTO;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.contracts.*;
+import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.utilities.ValidationHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

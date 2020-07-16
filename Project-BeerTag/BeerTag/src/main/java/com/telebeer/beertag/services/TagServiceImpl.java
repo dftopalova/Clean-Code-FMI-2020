@@ -3,6 +3,7 @@ package com.telebeer.beertag.services;
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.TagRepository;
 import com.telebeer.beertag.services.contracts.TagService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public String addTagToBeer(Tag tag, int beerId) {
-       return repository.addTagToBeer(tag, beerId);
+        return repository.addTagToBeer(tag, beerId);
     }
 
     @Override

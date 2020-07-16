@@ -2,6 +2,7 @@ package com.telebeer.beertag.repositories;
 
 import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.CountryRepository;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
