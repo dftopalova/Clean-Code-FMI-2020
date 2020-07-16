@@ -55,62 +55,43 @@ response payloads. It is integrated with Swagger.
 *UI*
 * Overview of the home page
 
-![alt text][home]
-
-[home]: https://i.imgur.com/0MeJeyu.mp4 "Unathorized/ Homepage"
-
+![home](/demo/home.mp4)
 
 
 * Overview of the REST API Documentation, integrated with Swagger
 
-![alt text][api]
 
-[api]: https://i.imgur.com/6wyK0gJ.mp4 "Unathorized/ REST API"
-
+![api](/demo/swagger.mp4)
 
 
 * Unauthorized view of the beer catalog with sorting and filtering functionality and details view
 
-![alt text][unauth]
 
-[unauth]: https://i.imgur.com/RUYtpZL.mp4 "Unathorized/ catalog and details view"
-
+![unauth](/demo/beers-not-auth.mp4)
 
 
 * Authorized user sidebar and beer creation view
 
-![alt text][auth]
 
-[auth]: https://i.imgur.com/fsTqVQL.mp4 "Authorized/ sidebar and beer creation view"
-
+![auth](/demo/home-auth.mp4)
 
 
 * Authorized user beer details and rating + favourites functionality
 
-![alt text][authdet]
-
-[authdet]: https://i.imgur.com/0kAsYV7.mp4 "Authorized/ beer rating and favourites functionality"
-
+![authdet](/demo/rate-beer.mp4)
 
 
 * Authorized user beer details and add/remove tag functionality
 
-![alt text][authtag]
-
-[authtag]: https://i.imgur.com/6RJHrQK.mp4 "Authorized/ beer add/remove tag functionality"
-
+![authtag](/demo/add-tag.mp4)
 
 
 * Authorized user beer details and My beers view
 
-![alt text][authmybeers]
 
-[authmybeers]: https://i.imgur.com/kIn3urq.mp4 "Authorized/ beer My beers view"
-
+![authmybeers](demo/tested-beers.mp4)
 
 
-* Authorized user beer details and Wishlost/Drank beers view
+* Authorized user beer details and Wishlist/Drank beers view
 
-![alt text][authfavbeers]
-
-[authfavbeers]: https://i.imgur.com/IzoY7S0.mp4 "Authorized/ beer Wishlist/Drank beers and edit beer details view"
+![authfavbeers](demo/add-beer-to-wishes.mp4)
