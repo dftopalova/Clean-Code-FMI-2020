@@ -11,11 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.telebeer.beertag.utilities.constants.BeerConstants.BEER_SUCCESSFULLY_UPDATED;
+
 @Repository
 public class BeerRepositoryImpl implements BeerRepository {
-
-    private static final String BEER_SUCCESSFULLY_UPDATED =
-            "{\"message\": \"Beer- %s successfully updated\"}";
 
     private SessionFactory sessionFactory;
 

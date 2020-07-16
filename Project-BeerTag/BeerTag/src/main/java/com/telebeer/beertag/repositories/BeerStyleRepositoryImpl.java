@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.telebeer.beertag.utilities.constants.BeerConstants.STYLE_SUCCESSFULLY_CREATED;
+
 @Repository
 public class BeerStyleRepositoryImpl implements BeerStyleRepository {
-    private static final String STYLE_SUCCESSFULLY_CREATED =
-            "{\"message\": \"Beer style- %s successfully created\"}";
 
     private SessionFactory sessionFactory;
 

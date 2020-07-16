@@ -6,7 +6,6 @@ import com.telebeer.beertag.models.entities.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.services.contracts.*;
 import com.telebeer.beertag.utilities.ValidationHelper;
-import javafx.scene.chart.ValueAxis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +15,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.telebeer.beertag.utilities.constants.BeerConstants.*;
+
 @Service
 public class BeerServiceImpl implements BeerService {
-
-    private static final String BEER_WITH_SAME_NAME_AND_STYLE_EXISTS =
-            "{\"message\": \"Beer with name - %s and style %s already exists\"}";
-    private static final String ALCOHOL_BY_VOLUME_INVALID_MESSAGE = "Alcohol by volume must be between 0 and 60 %!";
-    private static final int MIN_ALCOHOL_BY_VOLUME_VALUE = 0;
-    private static final int MAX_ALCOHOL_BY_VOLUME_VALUE = 60;
-    private static final String ERR_NO_SUCH_SORTING_CRITERIA = "No such sorting criteria!";
 
     private BeerRepository repository;
     private CountryService countryService;

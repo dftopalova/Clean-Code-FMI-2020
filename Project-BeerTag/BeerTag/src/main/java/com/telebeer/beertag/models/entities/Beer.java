@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.telebeer.beertag.utilities.constants.BeerConstants.*;
+
 @Entity
 @Table(name = "beers")
 public class Beer implements Comparable<Beer> {
@@ -22,7 +24,7 @@ public class Beer implements Comparable<Beer> {
     @Column(name = "id")
     private int id;
 
-    @Size(min = 3, max = 15, message = "Beer name must be between 3 and 15 symbols!") // TODO
+    @Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH, message = BEER_NAME_CONSTRAINT_MESSAGE)
     @Column(name = "name")
     private String name;
 

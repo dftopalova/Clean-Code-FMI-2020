@@ -16,14 +16,10 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.telebeer.beertag.utilities.constants.TagConstants.*;
+
 @Repository
 public class TagRepositoryImpl implements TagRepository {
-
-    private static final String TAG_NOT_FOUND_MESSAGE = "Tag not found";
-    private static final String TAG_SUCCESSFULLY_CREATED =
-            "{\"message\": \"Tag- %s successfully created\"}";
-    private static final String TAG_FAIL_ADDED =
-            "{\"message\": \"Tag- %s adding failed\"}";
 
     private SessionFactory sessionFactory;
     private BeerRepository beerRepository;

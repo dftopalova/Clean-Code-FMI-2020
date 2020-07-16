@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.telebeer.beertag.utilities.constants.UserConstants.*;
+
 @Entity
 @Table(name = "users")
 public class User implements Comparable<User> {
@@ -21,19 +23,19 @@ public class User implements Comparable<User> {
     @Column(name = "id")
     private int id;
 
-    @Size(min = 3, max = 20, message = "First name must be between 3 and 20 symbols.")
+    @Size(min = FIRST_NAME_MIN_LENGTH, max = FIRST_NAME_MAX_LENGTH, message = FIRST_NAME_LENGTH_CONSTRAINT_MESSAGE)
     @Column(name = "first_name")
     private String firstName;
 
-    @Size(min = 3, max = 20, message = "Last name must be between 3 and 20 symbols.")
+    @Size(min = LAST_NAME_MIN_LENGTH, max = LAST_NAME_MAX_LENGTH, message = LAST_NAME_CONSTRAINT_MESSAGE)
     @Column(name = "last_name")
     private String lastName;
 
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 symbols.")
+    @Size(min = USERNAME_MIN_LENGTH, max = USERNAME_MAX_LENGTH, message = USERNAME_LENGTH_CONSTRAINT_MESSAGE)
     @Column(name = "username")
     private String userName;
 
-    @Size(min = 3, message = "Password must be at least 3 symbols.")
+    @Size(min = PASSWORD_MIN_LENGTH, message = PASSWORD_LENGTH_CONSTRAINT_MESSAGE)
     @Column(name = "password")
     private String password;
 

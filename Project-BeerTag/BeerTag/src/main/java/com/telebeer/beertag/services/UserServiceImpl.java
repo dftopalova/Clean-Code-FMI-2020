@@ -1,10 +1,11 @@
 package com.telebeer.beertag.services;
-
 import com.telebeer.beertag.models.entities.*;
+
 import com.telebeer.beertag.exceptions.*;
 import com.telebeer.beertag.repositories.contracts.BeerRepository;
 import com.telebeer.beertag.repositories.contracts.UserRepository;
 import com.telebeer.beertag.services.contracts.UserService;
+import static com.telebeer.beertag.utilities.constants.UserConstants.*;
 import com.telebeer.beertag.utilities.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,18 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+
 @Service
 public class UserServiceImpl implements UserService {
-    private static final String USER_SUCCESSFULLY_CREATED = "{\"message\": \"User with username - %s is successfully created\"} ";
-    private static final String USER_SUCCESSFULLY_UPDATED = "{\"message\": \"User with username - %s is successfully updated\"} ";
-    private static final String USER_WITH_USERNAME_EXISTS = "{\"message\": \"User with such a username - %s already exists\"}";
-    private static final String BEER_NOT_FOUND = "This beer does not exist in the list!";
-    public static final String USER_WITH_ID_DOES_NOT_EXIST = "User with id %d does not exist";
-    public static final String USERS_WITH_FIRST_NAME_DOES_NOT_EXIST = "Users with first name %s does not exist";
-    public static final String USERS_WITH_LAST_NAME_DOES_NOT_EXIST = "Users with last name %s does not exist";
-    public static final String NO_ENTERED_FILTER_CRITERIA = "There is no entered any filter criteria";
-    public static final String NO_RESULTS_RETURNED = "No results returned";
-    public static final String NO_SUCH_SORTING_CRITERIA = "No such sorting criteria";
 
     private UserRepository repository;
     private BeerRepository beerRepository;
